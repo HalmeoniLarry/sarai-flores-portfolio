@@ -95,7 +95,7 @@
     min-height: 100vh;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
-    position: relative; padding: 7rem 2rem 5rem; overflow: hidden;
+    position: relative; padding: 7rem 2rem 3rem; overflow: hidden;
   }
 
   .hero-bg {
@@ -197,7 +197,7 @@
   }
   .divider span { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1rem; opacity: 0.5; }
 
-  section { max-width: 1080px; margin: 0 auto; padding: 5.5rem 2rem; position: relative; }
+  section { max-width: 1080px; margin: 0 auto; padding: 3rem 2rem; position: relative; }
 
   .sec-label {
     font-family: 'Cinzel', serif; font-size: 0.65rem;
@@ -374,7 +374,107 @@
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  .pg-star {
+  /* Grimoire flipbook */
+  .grimoire {
+    position: relative;
+    perspective: 2000px;
+    margin-bottom: 2rem;
+  }
+
+  .grimoire-inner {
+    position: relative;
+    min-height: 420px;
+  }
+
+  .grimoire-page {
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: rgba(10,51,35,0.38);
+    border: 1px solid rgba(201,168,76,0.18);
+    border-radius: 12px;
+    overflow: hidden;
+    animation: pageFlipIn 0.6s ease forwards;
+    transform-origin: left center;
+  }
+
+  .grimoire-page.active { display: grid; }
+
+  .grimoire-page.reverse { grid-template-columns: 1fr 1fr; }
+
+  @keyframes pageFlipIn {
+    0% { opacity: 0; transform: rotateY(-15deg) scale(0.97); }
+    100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+  }
+
+  @keyframes pageFlipOut {
+    0% { opacity: 1; transform: rotateY(0deg) scale(1); }
+    100% { opacity: 0; transform: rotateY(15deg) scale(0.97); }
+  }
+
+  .grimoire-page.flipping-out {
+    animation: pageFlipOut 0.3s ease forwards;
+  }
+
+  .page-img {
+    position: relative;
+    background: rgba(4,16,10,0.8);
+    border-right: 1px solid rgba(201,168,76,0.12);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 420px; overflow: hidden;
+  }
+
+  .grimoire-page.reverse .page-img {
+    border-right: none;
+    border-left: 1px solid rgba(201,168,76,0.12);
+  }
+
+  .page-img img {
+    max-width: 100%; max-height: 380px;
+    object-fit: contain; opacity: 0.92;
+    transition: opacity 0.3s;
+  }
+
+  .page-img:hover img { opacity: 1; }
+
+  .page-num-badge {
+    position: absolute; bottom: 12px; right: 12px;
+    font-family: 'Cinzel', serif; font-size: 0.6rem;
+    letter-spacing: 0.15em; color: var(--gold);
+    opacity: 0.5; background: rgba(4,16,10,0.8);
+    padding: 0.2rem 0.6rem; border-radius: 20px;
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .page-info {
+    padding: 2.2rem 2rem;
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 0.8rem;
+  }
+
+  /* Grimoire nav */
+  .grimoire-nav {
+    display: flex; align-items: center; justify-content: center;
+    gap: 2rem; margin-top: 1.5rem;
+  }
+
+  .grim-btn {
+    font-family: 'Cinzel', serif; font-size: 0.7rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gold); background: transparent;
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 0.6rem 1.4rem; border-radius: 4px;
+    cursor: none; transition: all 0.3s;
+  }
+  .grim-btn:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+  .grim-btn:disabled { opacity: 0.25; pointer-events: none; }
+
+  .grim-dots { display: flex; gap: 8px; }
+  .grim-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(201,168,76,0.25); transition: all 0.3s; cursor: pointer;
+  }
+  .grim-dot.active { background: var(--gold); transform: scale(1.2); }
     position: absolute; color: var(--gold); pointer-events: none;
     animation: pgStarAnim var(--psd) ease-in-out infinite var(--psdelay);
     opacity: 0; font-size: var(--psz); user-select: none;
@@ -410,7 +510,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Grimoire</a></li>
     <li><a href="#experience">Journey</a></li>
-    <li><a href="#contact">Reach Me</a></li>
+    <li><a href="#contact">Summon</a></li>
   </ul>
 </nav>
 
@@ -468,7 +568,7 @@
       <span class="stat-n">100%</span>
       <span class="stat-l">Portfolio Retention<br><em style="color:rgba(201,168,76,0.45);font-style:italic;font-size:0.65rem;">Team goal: 90%</em></span>
     </div>
-    <div class="stat"><span class="stat-n">SMB-ENT+</span><span class="stat-l">Accounts Managed</span></div>
+    <div class="stat"><span class="stat-n">26+</span><span class="stat-l">Accounts Managed</span></div>
     <div class="stat"><span class="stat-n">5</span><span class="stat-l">AI Tools Built</span></div>
     <div class="stat"><span class="stat-n">3</span><span class="stat-l">Awards · Year One</span></div>
   </div>
@@ -518,103 +618,103 @@
   <h2 class="sec-title">Five <em>Tools</em> Built From Scratch</h2>
   <p class="projects-intro">Five AI-powered automations built independently — outside any employer — to show how I think about Customer Success at the intersection of technology and human relationships. Each is live, deployable, and grounded in real CSM workflows.</p>
 
-  <div class="project-card reveal">
-    <div class="flipbook">
-      <div class="flipbook-slides">
-        <div class="flipbook-slide"><img src="churn-email.png" alt="Churn alert email"/></div>
-        <div class="flipbook-slide"><img src="zap-dashboard.png" alt="Zapier dashboard"/></div>
-      </div>
-      <button class="flip-btn flip-prev">‹</button>
-      <button class="flip-btn flip-next">›</button>
-      <div class="flip-dots"><div class="flip-dot active"></div><div class="flip-dot"></div></div>
-    </div>
-    <div class="project-body">
-      <p class="project-num">01 · Zapier + OpenAI + Gmail</p>
-      <h3 class="project-title">Churn Risk Detection <em>Alert System</em></h3>
-      <p class="project-why">Why I built it → Because by the time you notice churn, you're already behind.</p>
-      <p class="project-desc">When a customer row is updated in Google Sheets, AI analyzes their health score, usage patterns, support tickets, and renewal timing — then sends a CSM-ready intervention plan to the inbox. Risk level, root cause, three action items, and a pre-written outreach message. Automatically.</p>
-      <div class="tags"><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4.1</span><span class="tag">Gmail</span></div>
-      <p class="resume-line">Built an AI-driven churn detection system that identifies at-risk accounts and generates real-time intervention strategies, reducing reactive support workflows.</p>
-    </div>
-  </div>
+  <!-- Flipbook container -->
+  <div class="grimoire reveal">
+    <div class="grimoire-inner" id="grimoire-inner">
 
-  <div class="project-card reveal">
-    <div class="flipbook">
-      <div class="flipbook-slides">
-        <div class="flipbook-slide"><img src="welcome-email.png" alt="Welcome email output"/></div>
-        <div class="flipbook-slide"><img src="zap-dashboard.png" alt="Zapier dashboard"/></div>
+      <!-- Page 1: screenshot LEFT, info RIGHT -->
+      <div class="grimoire-page" data-index="0">
+        <div class="page-img">
+          <img src="churn-email.png" alt="Churn alert email"/>
+          <div class="page-num-badge">01 / 05</div>
+        </div>
+        <div class="page-info">
+          <p class="project-num">01 · Zapier + OpenAI + Gmail</p>
+          <h3 class="project-title">Churn Risk Detection <em>Alert System</em></h3>
+          <p class="project-why">Why I built it → Because by the time you notice churn, you're already behind.</p>
+          <p class="project-desc">When a customer row is updated in Google Sheets, AI analyzes health score, usage patterns, support tickets, and renewal timing — then sends a CSM-ready intervention plan to the inbox. Risk level, root cause, three action items, and a pre-written outreach message. Automatically.</p>
+          <div class="tags"><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4.1</span><span class="tag">Gmail</span></div>
+          <p class="resume-line">Built an AI-driven churn detection system that identifies at-risk accounts and generates real-time intervention strategies, reducing reactive support workflows.</p>
+        </div>
       </div>
-      <button class="flip-btn flip-prev">‹</button>
-      <button class="flip-btn flip-next">›</button>
-      <div class="flip-dots"><div class="flip-dot active"></div><div class="flip-dot"></div></div>
-    </div>
-    <div class="project-body">
-      <p class="project-num">02 · Zapier + OpenAI + Gmail</p>
-      <h3 class="project-title">Welcome Email <em>Generator</em></h3>
-      <p class="project-why">Why I built it → Generic onboarding emails don't build relationships. Personalized ones do.</p>
-      <p class="project-desc">The moment a new customer is added, AI reads their company, industry, and plan tier — and writes a fully personalized 30-day onboarding welcome email tailored to their business. Delivered to the assigned CSM before they've even opened their laptop.</p>
-      <div class="tags"><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4.1</span><span class="tag">Gmail</span></div>
-      <p class="resume-line">Designed an AI onboarding automation that generates personalized 30-day plans instantly upon customer creation, accelerating time-to-value.</p>
-    </div>
-  </div>
 
-  <div class="project-card reveal">
-    <div class="flipbook">
-      <div class="flipbook-slides">
-        <div class="flipbook-slide"><img src="digest-email.png" alt="Weekly digest email"/></div>
-        <div class="flipbook-slide"><img src="digest-zap.png" alt="Digest Zap canvas"/></div>
+      <!-- Page 2: info LEFT, screenshot RIGHT -->
+      <div class="grimoire-page reverse" data-index="1">
+        <div class="page-info">
+          <p class="project-num">02 · Zapier + OpenAI + Gmail</p>
+          <h3 class="project-title">Welcome Email <em>Generator</em></h3>
+          <p class="project-why">Why I built it → Generic onboarding emails don't build relationships. Personalized ones do.</p>
+          <p class="project-desc">The moment a new customer is added, AI reads their company, industry, and plan tier — and writes a fully personalized 30-day onboarding welcome email tailored to their business. Delivered before the CSM has even opened their laptop.</p>
+          <div class="tags"><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4.1</span><span class="tag">Gmail</span></div>
+          <p class="resume-line">Designed an AI onboarding automation that generates personalized 30-day plans instantly upon customer creation, accelerating time-to-value.</p>
+        </div>
+        <div class="page-img">
+          <img src="welcome-email.png" alt="Welcome email output"/>
+          <div class="page-num-badge">02 / 05</div>
+        </div>
       </div>
-      <button class="flip-btn flip-prev">‹</button>
-      <button class="flip-btn flip-next">›</button>
-      <div class="flip-dots"><div class="flip-dot active"></div><div class="flip-dot"></div></div>
-    </div>
-    <div class="project-body">
-      <p class="project-num">03 · Schedule + Google Sheets + OpenAI + Gmail</p>
-      <h3 class="project-title">Weekly Portfolio Health <em>Digest</em></h3>
-      <p class="project-why">Why I built it → Monday mornings shouldn't start with scrambling.</p>
-      <p class="project-desc">Every Monday, this automation pulls the entire account portfolio, runs it through AI analysis, and delivers a prioritized weekly action plan — risk levels, recommended actions per account, and an executive summary of overall portfolio health.</p>
-      <div class="tags"><span class="tag">Schedule Trigger</span><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4o</span></div>
-      <p class="resume-line">Built an automated weekly portfolio health system that surfaces at-risk accounts and generates prioritized action plans every Monday morning.</p>
-    </div>
-  </div>
 
-  <div class="project-card reveal">
-    <div class="flipbook">
-      <div class="flipbook-slides">
-        <div class="flipbook-slide"><img src="meeting-prep-email.png" alt="Meeting prep document"/></div>
-        <div class="flipbook-slide"><img src="zap-dashboard.png" alt="Zapier dashboard"/></div>
+      <!-- Page 3: screenshot LEFT, info RIGHT -->
+      <div class="grimoire-page" data-index="2">
+        <div class="page-img">
+          <img src="digest-email.png" alt="Weekly digest email"/>
+          <div class="page-num-badge">03 / 05</div>
+        </div>
+        <div class="page-info">
+          <p class="project-num">03 · Schedule + Google Sheets + OpenAI + Gmail</p>
+          <h3 class="project-title">Weekly Portfolio Health <em>Digest</em></h3>
+          <p class="project-why">Why I built it → Monday mornings shouldn't start with scrambling.</p>
+          <p class="project-desc">Every Monday, this automation pulls the entire account portfolio, runs it through AI analysis, and delivers a prioritized weekly action plan — risk levels, recommended actions per account, and an executive summary of overall portfolio health.</p>
+          <div class="tags"><span class="tag">Schedule Trigger</span><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4o</span></div>
+          <p class="resume-line">Built an automated weekly portfolio health system that surfaces at-risk accounts and generates prioritized action plans every Monday morning.</p>
+        </div>
       </div>
-      <button class="flip-btn flip-prev">‹</button>
-      <button class="flip-btn flip-next">›</button>
-      <div class="flip-dots"><div class="flip-dot active"></div><div class="flip-dot"></div></div>
-    </div>
-    <div class="project-body">
-      <p class="project-num">04 · Zapier + OpenAI + Gmail</p>
-      <h3 class="project-title">Meeting Prep <em>Generator</em></h3>
-      <p class="project-why">Why I built it → The best customer calls start before you dial in.</p>
-      <p class="project-desc">Drop in account data and receive a complete call prep document — three personalized talking points, top risks to address, expansion opportunities, five suggested questions, and a full executive account summary. Ready in seconds.</p>
-      <div class="tags"><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4.1</span><span class="tag">Gmail</span></div>
-      <p class="resume-line">Automated meeting preparation using AI to generate strategic call prep docs, enabling more focused and effective customer conversations.</p>
-    </div>
-  </div>
 
-  <div class="project-card reveal">
-    <div class="flipbook">
-      <div class="flipbook-slides">
-        <div class="flipbook-slide"><img src="nps-email.png" alt="NPS classifier output"/></div>
-        <div class="flipbook-slide"><img src="zap-dashboard.png" alt="Zapier dashboard"/></div>
+      <!-- Page 4: info LEFT, screenshot RIGHT -->
+      <div class="grimoire-page reverse" data-index="3">
+        <div class="page-info">
+          <p class="project-num">04 · Zapier + OpenAI + Gmail</p>
+          <h3 class="project-title">Meeting Prep <em>Generator</em></h3>
+          <p class="project-why">Why I built it → The best customer calls start before you dial in.</p>
+          <p class="project-desc">Drop in account data and receive a complete call prep document — three personalized talking points, top risks to address, expansion opportunities, five suggested questions, and a full executive account summary. Ready in seconds.</p>
+          <div class="tags"><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4.1</span><span class="tag">Gmail</span></div>
+          <p class="resume-line">Automated meeting preparation using AI to generate strategic call prep docs, enabling more focused and effective customer conversations.</p>
+        </div>
+        <div class="page-img">
+          <img src="meeting-prep-email.png" alt="Meeting prep document"/>
+          <div class="page-num-badge">04 / 05</div>
+        </div>
       </div>
-      <button class="flip-btn flip-prev">‹</button>
-      <button class="flip-btn flip-next">›</button>
-      <div class="flip-dots"><div class="flip-dot active"></div><div class="flip-dot"></div></div>
-    </div>
-    <div class="project-body">
-      <p class="project-num">05 · Zapier + OpenAI + Gmail</p>
-      <h3 class="project-title">NPS Response <em>Classifier</em></h3>
-      <p class="project-why">Why I built it → Customer feedback is only valuable if you actually act on it.</p>
-      <p class="project-desc">When a customer NPS response is logged, AI classifies sentiment, tags the category, assigns urgency, identifies the key theme, recommends a CSM action, and flags churn risk — all before a human even reads it.</p>
-      <div class="tags"><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4o</span><span class="tag">Gmail</span></div>
-      <p class="resume-line">Developed a Voice of Customer classification system using AI to automatically tag NPS responses and surface actionable retention insights.</p>
+
+      <!-- Page 5: screenshot LEFT, info RIGHT -->
+      <div class="grimoire-page" data-index="4">
+        <div class="page-img">
+          <img src="nps-email.png" alt="NPS classifier output"/>
+          <div class="page-num-badge">05 / 05</div>
+        </div>
+        <div class="page-info">
+          <p class="project-num">05 · Zapier + OpenAI + Gmail</p>
+          <h3 class="project-title">NPS Response <em>Classifier</em></h3>
+          <p class="project-why">Why I built it → Customer feedback is only valuable if you actually act on it.</p>
+          <p class="project-desc">When a customer NPS response is logged, AI classifies sentiment, tags the category, assigns urgency, identifies the key theme, recommends a CSM action, and flags churn risk — all before a human even reads it.</p>
+          <div class="tags"><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4o</span><span class="tag">Gmail</span></div>
+          <p class="resume-line">Developed a Voice of Customer classification system using AI to automatically tag NPS responses and surface actionable retention insights.</p>
+        </div>
+      </div>
+
+    </div><!-- end grimoire-inner -->
+
+    <!-- Navigation -->
+    <div class="grimoire-nav">
+      <button class="grim-btn" id="grim-prev">‹ Prev</button>
+      <div class="grim-dots" id="grim-dots">
+        <div class="grim-dot active"></div>
+        <div class="grim-dot"></div>
+        <div class="grim-dot"></div>
+        <div class="grim-dot"></div>
+        <div class="grim-dot"></div>
+      </div>
+      <button class="grim-btn" id="grim-next">Next ›</button>
     </div>
   </div>
 </section>
@@ -822,23 +922,35 @@ const obs=new IntersectionObserver(entries=>{
 },{threshold:0.12});
 document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
 
-// Flipbook
-document.querySelectorAll('.flipbook').forEach(fb=>{
-  const slides=fb.querySelector('.flipbook-slides');
-  const dots=fb.querySelectorAll('.flip-dot');
-  const prev=fb.querySelector('.flip-prev');
-  const next=fb.querySelector('.flip-next');
-  let current=0;
-  const total=fb.querySelectorAll('.flipbook-slide').length;
-  function goTo(n){
-    current=(n+total)%total;
-    slides.style.transform=`translateX(-${current*100}%)`;
-    dots.forEach((d,i)=>d.classList.toggle('active',i===current));
+// Grimoire flipbook
+const pages = document.querySelectorAll('.grimoire-page');
+const dots = document.querySelectorAll('.grim-dot');
+const prevBtn = document.getElementById('grim-prev');
+const nextBtn = document.getElementById('grim-next');
+let currentPage = 0;
+
+function showPage(n) {
+  const current = document.querySelector('.grimoire-page.active');
+  if(current) {
+    current.classList.add('flipping-out');
+    setTimeout(() => {
+      current.classList.remove('active', 'flipping-out');
+    }, 300);
   }
-  prev.addEventListener('click',()=>goTo(current-1));
-  next.addEventListener('click',()=>goTo(current+1));
-  dots.forEach((d,i)=>d.addEventListener('click',()=>goTo(i)));
-});
+  setTimeout(() => {
+    currentPage = (n + pages.length) % pages.length;
+    pages[currentPage].classList.add('active');
+    dots.forEach((d,i) => d.classList.toggle('active', i === currentPage));
+    prevBtn.disabled = currentPage === 0;
+    nextBtn.disabled = currentPage === pages.length - 1;
+  }, 300);
+}
+
+pages[0].classList.add('active');
+prevBtn.disabled = true;
+prevBtn.addEventListener('click', () => showPage(currentPage - 1));
+nextBtn.addEventListener('click', () => showPage(currentPage + 1));
+dots.forEach((d,i) => d.addEventListener('click', () => showPage(i)));
 
 window.addEventListener('resize',()=>{
   trailCanvas.width=ffCanvas.width=window.innerWidth;
