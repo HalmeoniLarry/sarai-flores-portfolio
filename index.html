@@ -559,17 +559,28 @@
   </div>
 
   <h1>Sarai Flores</h1>
-  <p class="hero-role">Customer Success Specialist · AI Automation Architect</p>
+  <p class="hero-role">Product Researcher · AI Automation Builder · Bilingual EN/ES</p>
   <p class="hero-tagline">
     <span style="color:var(--gold);font-size:0.8rem;">✦</span> First time on this planet.<br><strong>Endlessly curious about everyone else who is too.</strong> <span style="color:var(--gold);font-size:0.8rem;">✦</span>
   </p>
+
+  <div class="hero-bullets reveal" style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin-bottom:2rem;">
+    <p style="font-family:'Cinzel',serif;font-size:0.72rem;letter-spacing:0.2em;color:rgba(201,168,76,0.7);text-transform:uppercase;">Currently</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.8rem;max-width:600px;">
+      <span style="background:rgba(10,51,35,0.6);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.35rem 1rem;font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.15em;color:var(--gold-light);">Product Researcher</span>
+      <span style="background:rgba(10,51,35,0.6);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.35rem 1rem;font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.15em;color:var(--gold-light);">AI Automation Builder</span>
+      <span style="background:rgba(10,51,35,0.6);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.35rem 1rem;font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.15em;color:var(--gold-light);">Building Teyolia 🌿</span>
+      <span style="background:rgba(10,51,35,0.6);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.35rem 1rem;font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.15em;color:var(--gold-light);">Pinterest since invite-only</span>
+      <span style="background:rgba(10,51,35,0.6);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.35rem 1rem;font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.15em;color:var(--gold-light);">Bilingual EN/ES</span>
+    </div>
+  </div>
 
   <div class="stats reveal">
     <div class="stat">
       <span class="stat-n">95%</span>
       <span class="stat-l">Portfolio Retention<br><em style="color:rgba(201,168,76,0.45);font-style:italic;font-size:0.65rem;">Team goal: 90%</em></span>
     </div>
-    <div class="stat"><span class="stat-n">26+</span><span class="stat-l">Accounts Managed</span></div>
+    <div class="stat"><span class="stat-n">27</span><span class="stat-l">Accounts Managed</span></div>
     <div class="stat"><span class="stat-n">5</span><span class="stat-l">AI Tools Built</span></div>
     <div class="stat"><span class="stat-n">4</span><span class="stat-l">Awards · Year One</span></div>
   </div>
@@ -587,11 +598,11 @@
     <p class="sec-label">The Story</p>
     <div class="sec-stars"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
     <h2 class="sec-title">Doing things <em>scared</em></h2>
-    <p>I didn't come to Customer Success to play it safe. I came to <strong>figure things out</strong> — even when the path wasn't clear, even when the tools were new, even when the answer wasn't obvious yet.</p>
+    <p>I didn't come to tech to play it safe. I came to <strong>figure things out</strong> — even when the path wasn't clear, even when the tools were new, even when the answer wasn't obvious yet.</p>
     <p>In my first year at Fullbay, I earned a <strong>Trailblazer Award</strong> and two <strong>High Performing Awards</strong> — not because everything came easily, but because I kept digging. If there was a wall, I looked for a door. If there wasn't one, I built it.</p>
     <p>That same instinct is what led me to AI automation. I watched my team spend time on tasks that should take minutes. I started asking: <em>what if we didn't have to?</em> So I learned Zapier. I learned to prompt AI. I built five working tools from scratch — independently, outside of work hours — because the tools existed and I wasn't going to be afraid of them.</p>
     <div class="pull-quote">"There has to be a better way" isn't a complaint. It's a compass.</div>
-    <p>I manage accounts ranging from SMB to enterprise — up to 50+ users — and I bring the same energy to every one: proactive, human, and always moving toward value.</p>
+    <p>I started as a lead preschool teacher and never stopped trying to understand how people learn. Every role since has been a different version of the same question: how do different people experience the same thing differently? That question is what led me to product research.</p>
   </div>
 
   <div class="awards reveal">
@@ -619,104 +630,94 @@
   <h2 class="sec-title">Five <em>Tools</em> Built From Scratch</h2>
   <p class="projects-intro">Five AI-powered automations built independently — outside any employer — to show how I think about Customer Success at the intersection of technology and human relationships. Each is live, deployable, and grounded in real CSM workflows.</p>
 
-  <!-- Flipbook container -->
-  <div class="grimoire reveal">
-    <div class="grimoire-inner" id="grimoire-inner">
+  <style>
+  .tool-carousel { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.4rem; margin-top:2rem; }
+  .tool-card {
+    background:rgba(10,51,35,0.55);
+    border:1px solid rgba(201,168,76,0.15);
+    border-radius:12px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:border-color 0.3s, transform 0.3s;
+    position:relative;
+  }
+  .tool-card:hover { border-color:rgba(201,168,76,0.5); transform:translateY(-4px); }
+  .tool-card-img {
+    width:100%; height:180px; overflow:hidden;
+    background:rgba(4,16,10,0.8);
+    display:flex; align-items:center; justify-content:center;
+    border-bottom:1px solid rgba(201,168,76,0.1);
+    position:relative;
+  }
+  .tool-card-img img { width:100%; height:100%; object-fit:cover; opacity:0.85; transition:opacity 0.3s; }
+  .tool-card:hover .tool-card-img img { opacity:1; }
+  .tool-card-body { padding:1.2rem; }
+  .tool-card-num { font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:0.2em; color:var(--gold); opacity:0.6; margin-bottom:0.4rem; }
+  .tool-card-title { font-family:'Cinzel',serif; font-size:1rem; color:var(--cream); margin-bottom:0.5rem; line-height:1.3; }
+  .tool-card-title em { font-family:'IM Fell English',serif; font-style:italic; color:var(--gold); }
+  .tool-card-why { font-size:0.82rem; color:rgba(247,242,227,0.55); font-style:italic; margin-bottom:0.8rem; line-height:1.5; }
+  .tool-card-desc { font-size:0.88rem; color:rgba(247,242,227,0.72); line-height:1.6; margin-bottom:1rem; }
+  .tool-card-tags { display:flex; flex-wrap:wrap; gap:0.4rem; }
+  .tool-card-tag { background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.2); border-radius:20px; padding:0.2rem 0.6rem; font-size:0.65rem; color:var(--gold-light); font-family:'Cinzel',serif; letter-spacing:0.1em; }
+  </style>
 
-      <!-- Page 1: screenshot LEFT, info RIGHT -->
-      <div class="grimoire-page" data-index="0">
-        <div class="page-img">
-          <img src="churn-email.png" alt="Churn alert email"/>
-          <div class="page-num-badge">01 / 05</div>
-        </div>
-        <div class="page-info">
-          <p class="project-num">01 · Zapier + OpenAI + Gmail</p>
-          <h3 class="project-title">Churn Risk Detection <em>Alert System</em></h3>
-          <p class="project-why">Why I built it → Because by the time you notice churn, you're already behind.</p>
-          <p class="project-desc">When a customer row is updated in Google Sheets, AI analyzes health score, usage patterns, support tickets, and renewal timing — then sends a CSM-ready intervention plan to the inbox. Risk level, root cause, three action items, and a pre-written outreach message. Automatically.</p>
-          <div class="tags"><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4.1</span><span class="tag">Gmail</span></div>
-          <p class="resume-line">Built an AI-driven churn detection system that identifies at-risk accounts and generates real-time intervention strategies, reducing reactive support workflows.</p>
-        </div>
+  <div class="tool-carousel reveal">
+
+    <div class="tool-card">
+      <div class="tool-card-img"><img src="churn-email.png" alt="Churn Risk Detection"/></div>
+      <div class="tool-card-body">
+        <p class="tool-card-num">01 · Zapier + OpenAI + Gmail</p>
+        <h3 class="tool-card-title">Churn Risk Detection <em>Alert System</em></h3>
+        <p class="tool-card-why">Because by the time you notice churn, you're already behind.</p>
+        <p class="tool-card-desc">AI analyzes health score, usage patterns, and renewal timing — then sends a CSM-ready intervention plan automatically.</p>
+        <div class="tool-card-tags"><span class="tool-card-tag">Zapier</span><span class="tool-card-tag">OpenAI GPT-4.1</span><span class="tool-card-tag">Gmail</span></div>
       </div>
-
-      <!-- Page 2: info LEFT, screenshot RIGHT -->
-      <div class="grimoire-page reverse" data-index="1">
-        <div class="page-info">
-          <p class="project-num">02 · Zapier + OpenAI + Gmail</p>
-          <h3 class="project-title">Welcome Email <em>Generator</em></h3>
-          <p class="project-why">Why I built it → Generic onboarding emails don't build relationships. Personalized ones do.</p>
-          <p class="project-desc">The moment a new customer is added, AI reads their company, industry, and plan tier — and writes a fully personalized 30-day onboarding welcome email tailored to their business. Delivered before the CSM has even opened their laptop.</p>
-          <div class="tags"><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4.1</span><span class="tag">Gmail</span></div>
-          <p class="resume-line">Designed an AI onboarding automation that generates personalized 30-day plans instantly upon customer creation, accelerating time-to-value.</p>
-        </div>
-        <div class="page-img">
-          <img src="welcome-email.png" alt="Welcome email output"/>
-          <div class="page-num-badge">02 / 05</div>
-        </div>
-      </div>
-
-      <!-- Page 3: screenshot LEFT, info RIGHT -->
-      <div class="grimoire-page" data-index="2">
-        <div class="page-img">
-          <img src="digest-email.png" alt="Weekly digest email"/>
-          <div class="page-num-badge">03 / 05</div>
-        </div>
-        <div class="page-info">
-          <p class="project-num">03 · Schedule + Google Sheets + OpenAI + Gmail</p>
-          <h3 class="project-title">Weekly Portfolio Health <em>Digest</em></h3>
-          <p class="project-why">Why I built it → Monday mornings shouldn't start with scrambling.</p>
-          <p class="project-desc">Every Monday, this automation pulls the entire account portfolio, runs it through AI analysis, and delivers a prioritized weekly action plan — risk levels, recommended actions per account, and an executive summary of overall portfolio health.</p>
-          <div class="tags"><span class="tag">Schedule Trigger</span><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4o</span></div>
-          <p class="resume-line">Built an automated weekly portfolio health system that surfaces at-risk accounts and generates prioritized action plans every Monday morning.</p>
-        </div>
-      </div>
-
-      <!-- Page 4: info LEFT, screenshot RIGHT -->
-      <div class="grimoire-page reverse" data-index="3">
-        <div class="page-info">
-          <p class="project-num">04 · Zapier + OpenAI + Gmail</p>
-          <h3 class="project-title">Meeting Prep <em>Generator</em></h3>
-          <p class="project-why">Why I built it → The best customer calls start before you dial in.</p>
-          <p class="project-desc">Drop in account data and receive a complete call prep document — three personalized talking points, top risks to address, expansion opportunities, five suggested questions, and a full executive account summary. Ready in seconds.</p>
-          <div class="tags"><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4.1</span><span class="tag">Gmail</span></div>
-          <p class="resume-line">Automated meeting preparation using AI to generate strategic call prep docs, enabling more focused and effective customer conversations.</p>
-        </div>
-        <div class="page-img">
-          <img src="meeting-prep-email.png" alt="Meeting prep document"/>
-          <div class="page-num-badge">04 / 05</div>
-        </div>
-      </div>
-
-      <!-- Page 5: screenshot LEFT, info RIGHT -->
-      <div class="grimoire-page" data-index="4">
-        <div class="page-img">
-          <img src="nps-email.png" alt="NPS classifier output"/>
-          <div class="page-num-badge">05 / 05</div>
-        </div>
-        <div class="page-info">
-          <p class="project-num">05 · Zapier + OpenAI + Gmail</p>
-          <h3 class="project-title">NPS Response <em>Classifier</em></h3>
-          <p class="project-why">Why I built it → Customer feedback is only valuable if you actually act on it.</p>
-          <p class="project-desc">When a customer NPS response is logged, AI classifies sentiment, tags the category, assigns urgency, identifies the key theme, recommends a CSM action, and flags churn risk — all before a human even reads it.</p>
-          <div class="tags"><span class="tag">Google Sheets</span><span class="tag">Zapier</span><span class="tag">OpenAI GPT-4o</span><span class="tag">Gmail</span></div>
-          <p class="resume-line">Developed a Voice of Customer classification system using AI to automatically tag NPS responses and surface actionable retention insights.</p>
-        </div>
-      </div>
-
-    </div><!-- end grimoire-inner -->
-
-    <!-- Navigation -->
-    <div class="grimoire-nav">
-      <button class="grim-btn" id="grim-prev">‹ Prev</button>
-      <div class="grim-dots" id="grim-dots">
-        <div class="grim-dot active"></div>
-        <div class="grim-dot"></div>
-        <div class="grim-dot"></div>
-        <div class="grim-dot"></div>
-        <div class="grim-dot"></div>
-      </div>
-      <button class="grim-btn" id="grim-next">Next ›</button>
     </div>
+
+    <div class="tool-card">
+      <div class="tool-card-img"><img src="welcome-email.png" alt="Welcome Email Generator"/></div>
+      <div class="tool-card-body">
+        <p class="tool-card-num">02 · Zapier + OpenAI + Gmail</p>
+        <h3 class="tool-card-title">Welcome Email <em>Generator</em></h3>
+        <p class="tool-card-why">Generic onboarding emails don't build relationships. Personalized ones do.</p>
+        <p class="tool-card-desc">AI writes a fully personalized 30-day onboarding email the moment a new customer is created — before the CSM opens their laptop.</p>
+        <div class="tool-card-tags"><span class="tool-card-tag">Zapier</span><span class="tool-card-tag">OpenAI GPT-4.1</span><span class="tool-card-tag">Gmail</span></div>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-card-img"><img src="digest-email.png" alt="Weekly Portfolio Digest"/></div>
+      <div class="tool-card-body">
+        <p class="tool-card-num">03 · Schedule + Sheets + OpenAI</p>
+        <h3 class="tool-card-title">Weekly Portfolio Health <em>Digest</em></h3>
+        <p class="tool-card-why">Monday mornings shouldn't start with scrambling.</p>
+        <p class="tool-card-desc">Every Monday, AI pulls the full portfolio and delivers a prioritized action plan — risk levels, recommendations, and an executive summary.</p>
+        <div class="tool-card-tags"><span class="tool-card-tag">Zapier</span><span class="tool-card-tag">OpenAI GPT-4o</span><span class="tool-card-tag">Sheets</span></div>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-card-img"><img src="meeting-prep-email.png" alt="Meeting Prep Generator"/></div>
+      <div class="tool-card-body">
+        <p class="tool-card-num">04 · Zapier + OpenAI + Gmail</p>
+        <h3 class="tool-card-title">Meeting Prep <em>Generator</em></h3>
+        <p class="tool-card-why">The best customer calls start before you dial in.</p>
+        <p class="tool-card-desc">Drop in account data and receive talking points, risks, expansion opportunities, suggested questions, and an executive summary. Seconds.</p>
+        <div class="tool-card-tags"><span class="tool-card-tag">Zapier</span><span class="tool-card-tag">OpenAI GPT-4.1</span><span class="tool-card-tag">Gmail</span></div>
+      </div>
+    </div>
+
+    <div class="tool-card">
+      <div class="tool-card-img"><img src="nps-email.png" alt="NPS Response Classifier"/></div>
+      <div class="tool-card-body">
+        <p class="tool-card-num">05 · Zapier + OpenAI + Gmail</p>
+        <h3 class="tool-card-title">NPS Response <em>Classifier</em></h3>
+        <p class="tool-card-why">Customer feedback is only valuable if you actually act on it.</p>
+        <p class="tool-card-desc">AI classifies sentiment, tags categories, assigns urgency, and recommends CSM actions — all before a human reads the response.</p>
+        <div class="tool-card-tags"><span class="tool-card-tag">Zapier</span><span class="tool-card-tag">OpenAI GPT-4o</span><span class="tool-card-tag">Gmail</span></div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -827,9 +828,40 @@
 
 <section id="contact">
   <div class="sec-stars"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
-  <p class="sec-label">Summon</p>
+  <p class="sec-label">A Few Tidbits</p>
+  <h2 class="sec-title">Don't be <em>shy</em></h2>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:860px;margin:0 auto 3rem;text-align:left;" class="reveal">
+    <div style="background:rgba(10,51,35,0.45);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1.2rem;">
+      <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);opacity:0.7;margin-bottom:0.5rem;">Origin story</p>
+      <p style="font-size:0.9rem;color:rgba(247,242,227,0.75);line-height:1.6;">Started as a lead preschool teacher. Still asking the same question: how does this person actually experience the world?</p>
+    </div>
+    <div style="background:rgba(10,51,35,0.45);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1.2rem;">
+      <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);opacity:0.7;margin-bottom:0.5rem;">Currently building</p>
+      <p style="font-size:0.9rem;color:rgba(247,242,227,0.75);line-height:1.6;">Teyolia — a whimsical book tracking app. Stardew Valley meets your bookshelf. Researching before building a single feature. 🌿</p>
+    </div>
+    <div style="background:rgba(10,51,35,0.45);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1.2rem;">
+      <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);opacity:0.7;margin-bottom:0.5rem;">Also building</p>
+      <p style="font-size:0.9rem;color:rgba(247,242,227,0.75);line-height:1.6;">Brewjitas — a canned cold brew coffee brand with my best friend. Because why not.</p>
+    </div>
+    <div style="background:rgba(10,51,35,0.45);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1.2rem;">
+      <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);opacity:0.7;margin-bottom:0.5rem;">In my purse right now</p>
+      <p style="font-size:0.9rem;color:rgba(247,242,227,0.75);line-height:1.6;">A deck of Staccs — a card game I backed on Kickstarter and carry everywhere. Indie games, always.</p>
+    </div>
+    <div style="background:rgba(10,51,35,0.45);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1.2rem;">
+      <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);opacity:0.7;margin-bottom:0.5rem;">Mom of three</p>
+      <p style="font-size:0.9rem;color:rgba(247,242,227,0.75);line-height:1.6;">Homeschooling, volunteering at school, believing early education shapes everything. Pinterest user since the invite-only days.</p>
+    </div>
+    <div style="background:rgba(10,51,35,0.45);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1.2rem;">
+      <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);opacity:0.7;margin-bottom:0.5rem;">Learning right now</p>
+      <p style="font-size:0.9rem;color:rgba(247,242,227,0.75);line-height:1.6;">Python and pandas. SQL. Affinity mapping. How to turn every question into something worth building.</p>
+    </div>
+  </div>
+
+  <div class="sec-stars"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
+  <p class="sec-label" style="margin-top:1rem;">Summon</p>
   <h2 class="sec-title">Let's <em>Connect</em></h2>
-  <p style="color:rgba(247,242,227,0.55);max-width:460px;margin:0 auto 0.5rem;font-size:0.95rem;">Phoenix, AZ · Open to Remote Opportunities</p>
+  <p style="color:rgba(247,242,227,0.55);max-width:460px;margin:0 auto 0.5rem;font-size:0.95rem;">Avondale, AZ · Open to Remote Opportunities</p>
   <div class="contact-links">
     <a href="mailto:Halmeonilarry@gmail.com" class="contact-link">✉ Email</a>
     <a href="https://linkedin.com/in/saraimflores" class="contact-link" target="_blank">in LinkedIn</a>
