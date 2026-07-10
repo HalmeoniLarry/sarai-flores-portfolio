@@ -19,8 +19,8 @@ body{background:#0A1208;font-family:'IM Fell English',serif;color:var(--cream);o
 #sparkles{position:fixed;inset:0;z-index:1;pointer-events:none;}
 .sparkle{position:absolute;width:3px;height:3px;background:var(--gold-light);border-radius:50%;animation:twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);}
 @keyframes twinkle{0%,100%{opacity:0;transform:scale(.5);}50%{opacity:1;transform:scale(1.8);}}
-.sticker{position:fixed;z-index:500;cursor:grab;user-select:none;font-size:clamp(1.4rem,2.5vw,2rem);filter:drop-shadow(0 2px 6px rgba(0,0,0,0.6));transition:transform .2s;pointer-events:all;}
-.sticker:hover{transform:scale(1.25) rotate(8deg);}
+.sticker{position:fixed;z-index:500;cursor:grab;user-select:none;width:clamp(70px,8vw,110px);height:auto;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.6));transition:transform .2s;pointer-events:all;}
+.sticker:hover{transform:scale(1.15) rotate(6deg);}
 .sticker:active{cursor:grabbing;}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.75rem 2rem;background:rgba(6,10,5,0.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:space-between;}
 .nav-logo{font-family:'Cinzel',serif;font-size:.85rem;letter-spacing:.2em;color:var(--gold);text-decoration:none;}
@@ -97,18 +97,18 @@ footer p{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;color:rg
 <div id="sparkles"></div>
 
 <!-- Stickers -->
-<div class="sticker" id="s1" style="left:3%;top:20%;">✨</div>
-<div class="sticker" id="s2" style="left:2%;top:55%;">🍵</div>
-<div class="sticker" id="s3" style="right:3%;top:15%;">🌿</div>
-<div class="sticker" id="s4" style="right:2%;top:50%;">⭐</div>
-<div class="sticker" id="s5" style="left:4%;top:80%;">🕯️</div>
-<div class="sticker" id="s6" style="right:4%;top:80%;">📚</div>
-<div class="sticker" id="s7" style="left:2%;top:38%;">🌸</div>
-<div class="sticker" id="s8" style="right:2%;top:35%;">🍂</div>
-<div class="sticker" id="s9" style="left:5%;top:68%;">🌙</div>
-<div class="sticker" id="s10" style="right:5%;top:65%;">🪶</div>
-<div class="sticker" id="s11" style="left:3%;top:92%;">🍄</div>
-<div class="sticker" id="s12" style="right:3%;top:92%;">🌻</div>
+<img class="sticker" id="s1" src="SpellJar.png" alt="" style="left:3%;top:20%;">
+<img class="sticker" id="s2" src="Teacup.png" alt="" style="left:2%;top:55%;">
+<img class="sticker" id="s3" src="Scroll.png" alt="" style="right:3%;top:15%;">
+<img class="sticker" id="s4" src="Compass.png" alt="" style="right:2%;top:50%;">
+<img class="sticker" id="s5" src="CandleLavender.png" alt="" style="left:4%;top:80%;">
+<img class="sticker" id="s6" src="MarBooks.png" alt="" style="right:4%;top:80%;">
+<img class="sticker" id="s7" src="MarTeacup.png" alt="" style="left:2%;top:38%;">
+<img class="sticker" id="s8" src="MarReading.png" alt="" style="right:2%;top:35%;">
+<img class="sticker" id="s9" src="SleepingSombra.png" alt="" style="left:5%;top:68%;">
+<img class="sticker" id="s10" src="SombraLooking.png" alt="" style="right:5%;top:65%;">
+<img class="sticker" id="s11" src="SittingUpSombra.png" alt="" style="left:3%;top:92%;">
+<img class="sticker" id="s12" src="SombraSitting.png" alt="" style="right:3%;top:92%;">
 
 <nav>
   <a href="#hero" class="nav-logo">S · F</a>
