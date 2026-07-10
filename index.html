@@ -77,6 +77,21 @@ section{position:relative;z-index:10;}
 .spell-desc{font-size:.88rem;color:var(--cream-dim);line-height:1.6;margin-bottom:1rem;}
 .spell-tags{display:flex;flex-wrap:wrap;gap:.4rem;}
 .spell-tag{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;padding:.2rem .6rem;border-radius:20px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);color:var(--gold-light);}
+.spell-slider{position:relative;margin-top:2rem;}
+.spell-viewport{overflow:hidden;border-radius:12px;}
+.spell-track{display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1);}
+.spell-slide{min-width:100%;box-sizing:border-box;padding:0 .25rem;}
+.spell-slide-inner{background:rgba(10,31,20,0.6);border:1px solid var(--gold-dim);border-radius:12px;padding:1.8rem;}
+.spell-shots{display:grid;grid-template-columns:1fr;gap:.8rem;margin-bottom:1.4rem;}
+.spell-shots.two{grid-template-columns:1fr 1fr;}
+@media(max-width:640px){.spell-shots.two{grid-template-columns:1fr;}}
+.spell-shots img{width:100%;border-radius:8px;border:1px solid var(--gold-dim);display:block;}
+.slider-nav{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-top:1.4rem;}
+.slider-btn{background:rgba(10,31,20,0.7);border:1px solid var(--gold-dim);color:var(--gold);width:38px;height:38px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;}
+.slider-btn:hover{border-color:var(--gold);background:rgba(201,168,76,0.15);}
+.slider-dots{display:flex;gap:.5rem;}
+.slider-dot{width:8px;height:8px;border-radius:50%;background:rgba(201,168,76,0.25);border:1px solid var(--gold-dim);cursor:pointer;transition:background .25s;}
+.slider-dot.active{background:var(--gold);}
 #journey img{width:100%;border-radius:12px;border:1px solid var(--gold-dim);filter:drop-shadow(0 8px 24px rgba(0,0,0,0.6));margin-top:2rem;}
 #contact{text-align:center;}
 .contact-cards{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin:2rem auto;max-width:800px;}
@@ -224,41 +239,71 @@ footer p{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;color:rg
     <h2 class="sec-title reveal">Automations <em>— 5 spells I cast independently</em></h2>
     <div class="sec-divider reveal"></div>
     <p class="reveal" style="font-style:italic;color:rgba(247,242,227,0.4);margin-bottom:.5rem;">"Systems are spells. I just write them better." 🌿</p>
-    <div class="spell-grid reveal">
-      <div class="spell-card">
-        <p class="spell-num">01 · Zapier + OpenAI + Gmail</p>
-        <h3 class="spell-name">Churn Risk Detection <em>Alert System</em></h3>
-        <p class="spell-why">Because by the time you notice churn, you're already behind.</p>
-        <p class="spell-desc">AI analyzes health score, usage patterns, support tickets, and renewal timing — then sends a CSM-ready intervention plan automatically.</p>
-        <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Google Sheets</span></div>
+    <div class="spell-slider reveal">
+      <div class="spell-viewport">
+        <div class="spell-track" id="spellTrack">
+
+          <div class="spell-slide">
+            <div class="spell-slide-inner">
+              <div class="spell-shots"><img src="churn-email.png" alt="Churn Risk Detection automation email"></div>
+              <p class="spell-num">01 · Zapier + OpenAI + Gmail</p>
+              <h3 class="spell-name">Churn Risk Detection <em>Alert System</em></h3>
+              <p class="spell-why">Because by the time you notice churn, you're already behind.</p>
+              <p class="spell-desc">AI analyzes health score, usage patterns, support tickets, and renewal timing — then sends a CSM-ready intervention plan automatically.</p>
+              <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Google Sheets</span></div>
+            </div>
+          </div>
+
+          <div class="spell-slide">
+            <div class="spell-slide-inner">
+              <div class="spell-shots"><img src="welcome-email.png" alt="Welcome Email Generator automation"></div>
+              <p class="spell-num">02 · Zapier + OpenAI + Gmail</p>
+              <h3 class="spell-name">Welcome Email <em>Generator</em></h3>
+              <p class="spell-why">Generic onboarding emails don't build relationships. Personalized ones do.</p>
+              <p class="spell-desc">AI reads company and industry and writes a fully personalized 30-day onboarding email the moment a new customer is created.</p>
+              <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Google Sheets</span></div>
+            </div>
+          </div>
+
+          <div class="spell-slide">
+            <div class="spell-slide-inner">
+              <div class="spell-shots two"><img src="digest-email.png" alt="Weekly Portfolio Digest email"><img src="digest-zap.png" alt="Weekly Portfolio Digest Zapier flow"></div>
+              <p class="spell-num">03 · Schedule + Sheets + OpenAI</p>
+              <h3 class="spell-name">Weekly Portfolio Health <em>Digest</em></h3>
+              <p class="spell-why">Monday mornings shouldn't start with scrambling.</p>
+              <p class="spell-desc">Every Monday, AI delivers a prioritized action plan — risk levels, recommendations per account, and an executive summary of portfolio health.</p>
+              <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Google Sheets</span></div>
+            </div>
+          </div>
+
+          <div class="spell-slide">
+            <div class="spell-slide-inner">
+              <div class="spell-shots"><img src="meeting-prep-email.png" alt="Meeting Prep Generator automation"></div>
+              <p class="spell-num">04 · Zapier + OpenAI + Gmail</p>
+              <h3 class="spell-name">Meeting Prep <em>Generator</em></h3>
+              <p class="spell-why">The best customer calls start before you dial in.</p>
+              <p class="spell-desc">Drop in account data and receive talking points, risks, expansion opportunities, suggested questions, and an executive summary. Seconds.</p>
+              <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Notion API</span></div>
+            </div>
+          </div>
+
+          <div class="spell-slide">
+            <div class="spell-slide-inner">
+              <div class="spell-shots two"><img src="nps-email.png" alt="NPS Response Classifier email"><img src="zap-dashboard.png" alt="NPS Response Classifier Zapier dashboard"></div>
+              <p class="spell-num">05 · Zapier + OpenAI + Gmail</p>
+              <h3 class="spell-name">NPS Response <em>Classifier</em></h3>
+              <p class="spell-why">Customer feedback is only valuable if you actually act on it.</p>
+              <p class="spell-desc">AI classifies sentiment, tags categories, assigns urgency, and recommends CSM actions — all before a human reads the response.</p>
+              <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Sheets API</span></div>
+            </div>
+          </div>
+
+        </div>
       </div>
-      <div class="spell-card">
-        <p class="spell-num">02 · Zapier + OpenAI + Gmail</p>
-        <h3 class="spell-name">Welcome Email <em>Generator</em></h3>
-        <p class="spell-why">Generic onboarding emails don't build relationships. Personalized ones do.</p>
-        <p class="spell-desc">AI reads company and industry and writes a fully personalized 30-day onboarding email the moment a new customer is created.</p>
-        <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Google Sheets</span></div>
-      </div>
-      <div class="spell-card">
-        <p class="spell-num">03 · Schedule + Sheets + OpenAI</p>
-        <h3 class="spell-name">Weekly Portfolio Health <em>Digest</em></h3>
-        <p class="spell-why">Monday mornings shouldn't start with scrambling.</p>
-        <p class="spell-desc">Every Monday, AI delivers a prioritized action plan — risk levels, recommendations per account, and an executive summary of portfolio health.</p>
-        <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Google Sheets</span></div>
-      </div>
-      <div class="spell-card">
-        <p class="spell-num">04 · Zapier + OpenAI + Gmail</p>
-        <h3 class="spell-name">Meeting Prep <em>Generator</em></h3>
-        <p class="spell-why">The best customer calls start before you dial in.</p>
-        <p class="spell-desc">Drop in account data and receive talking points, risks, expansion opportunities, suggested questions, and an executive summary. Seconds.</p>
-        <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Notion API</span></div>
-      </div>
-      <div class="spell-card">
-        <p class="spell-num">05 · Zapier + OpenAI + Gmail</p>
-        <h3 class="spell-name">NPS Response <em>Classifier</em></h3>
-        <p class="spell-why">Customer feedback is only valuable if you actually act on it.</p>
-        <p class="spell-desc">AI classifies sentiment, tags categories, assigns urgency, and recommends CSM actions — all before a human reads the response.</p>
-        <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Sheets API</span></div>
+      <div class="slider-nav">
+        <button class="slider-btn" onclick="spellSlide(-1)" aria-label="Previous automation">&#8249;</button>
+        <div class="slider-dots" id="spellDots"></div>
+        <button class="slider-btn" onclick="spellSlide(1)" aria-label="Next automation">&#8250;</button>
       </div>
     </div>
   </div>
@@ -331,6 +376,36 @@ document.querySelectorAll('.sticker').forEach(s=>{
   s.addEventListener('touchmove',e=>{if(!drag)return;s.style.left=(e.touches[0].clientX-ox)+'px';s.style.top=(e.touches[0].clientY-oy)+'px';s.style.right='auto';e.preventDefault();},{passive:false});
   s.addEventListener('touchend',()=>drag=false);
 });
+
+// Automations slider
+(function(){
+  const track=document.getElementById('spellTrack');
+  const dotsWrap=document.getElementById('spellDots');
+  const slides=track.querySelectorAll('.spell-slide');
+  let idx=0;
+  slides.forEach((_,i)=>{
+    const d=document.createElement('div');
+    d.className='slider-dot'+(i===0?' active':'');
+    d.addEventListener('click',()=>goTo(i));
+    dotsWrap.appendChild(d);
+  });
+  const dots=dotsWrap.querySelectorAll('.slider-dot');
+  function render(){
+    track.style.transform='translateX(-'+(idx*100)+'%)';
+    dots.forEach((d,i)=>d.classList.toggle('active',i===idx));
+  }
+  function goTo(i){idx=(i+slides.length)%slides.length;render();}
+  window.spellSlide=function(dir){goTo(idx+dir);};
+  let startX=null;
+  track.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;},{passive:true});
+  track.addEventListener('touchend',e=>{
+    if(startX===null)return;
+    const dx=e.changedTouches[0].clientX-startX;
+    if(Math.abs(dx)>40){goTo(idx+(dx<0?1:-1));}
+    startX=null;
+  });
+  render();
+})();
 </script>
 </body>
 </html>
