@@ -1,1 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarai Flores — Portfolio of Willowmere</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&family=Lato:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#C9A84C;--gold-light:#E8C97A;--gold-dim:rgba(201,168,76,0.3);
+  --green-deep:#0A1F14;--cream:#F7F2E3;--cream-dim:rgba(247,242,227,0.85);
+  --brown:#2C1A0E;
+}
+html{scroll-behavior:smooth;}
+body{background:#0A1208;font-family:'IM Fell English',serif;color:var(--cream);overflow-x:hidden;}
+#bg{position:fixed;inset:0;z-index:0;background:url('background.png') center/cover no-repeat;}
+#bg::after{content:'';position:absolute;inset:0;background:rgba(6,10,5,0.72);}
+#sparkles{position:fixed;inset:0;z-index:1;pointer-events:none;}
+.sparkle{position:absolute;width:3px;height:3px;background:var(--gold-light);border-radius:50%;animation:twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.5);}50%{opacity:1;transform:scale(1.8);}}
+.sticker{position:fixed;z-index:500;cursor:grab;user-select:none;font-size:clamp(1.4rem,2.5vw,2rem);filter:drop-shadow(0 2px 6px rgba(0,0,0,0.6));transition:transform .2s;pointer-events:all;}
+.sticker:hover{transform:scale(1.25) rotate(8deg);}
+.sticker:active{cursor:grabbing;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:.75rem 2rem;background:rgba(6,10,5,0.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--gold-dim);display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'Cinzel',serif;font-size:.85rem;letter-spacing:.2em;color:var(--gold);text-decoration:none;}
+.nav-links{display:flex;gap:1.5rem;list-style:none;}
+.nav-links a{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(247,242,227,0.6);text-decoration:none;transition:color .3s;}
+.nav-links a:hover{color:var(--gold);}
+section{position:relative;z-index:10;}
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:6rem 2rem 4rem;}
+.hero-img{width:clamp(280px,50vw,580px);border-radius:12px;margin-bottom:2.5rem;filter:drop-shadow(0 8px 32px rgba(0,0,0,0.7));border:1px solid var(--gold-dim);}
+.hero-name{font-family:'Cinzel',serif;font-size:clamp(2.5rem,7vw,5rem);font-weight:700;color:var(--gold);letter-spacing:.05em;line-height:1.1;text-shadow:0 0 40px rgba(201,168,76,0.4);}
+.hero-tagline{font-family:'IM Fell English',serif;font-size:clamp(1rem,2.5vw,1.4rem);font-style:italic;color:var(--cream-dim);margin:1rem 0 2rem;max-width:600px;}
+.hero-pills{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;max-width:700px;}
+.pill{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;padding:.35rem 1rem;border-radius:20px;background:rgba(10,31,20,0.7);border:1px solid var(--gold-dim);color:var(--gold-light);}
+.scroll-hint{margin-top:3rem;font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;color:rgba(201,168,76,0.4);animation:bounce 2s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+.divider{text-align:center;padding:1rem 0;font-family:'Cinzel',serif;font-size:.8rem;color:var(--gold);opacity:.5;letter-spacing:.3em;}
+.parchment-section{max-width:1100px;margin:0 auto;padding:4rem 2rem;}
+.sec-label{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:.5rem;}
+.sec-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,3rem);color:var(--gold);margin-bottom:.5rem;}
+.sec-title em{font-family:'IM Fell English',serif;font-style:italic;color:var(--gold-light);}
+.sec-divider{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1rem 0 2rem;}
+.grimoire-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem;}
+@media(max-width:700px){.grimoire-grid{grid-template-columns:1fr;}}
+.story-block,.skills-block{background:rgba(10,31,20,0.55);border:1px solid var(--gold-dim);border-radius:12px;padding:1.8rem;}
+.story-block p{font-size:1rem;line-height:1.8;color:var(--cream-dim);margin-bottom:.8rem;}
+.story-block p strong{color:var(--gold-light);}
+.skill-group-title{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:.8rem;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem;}
+.skill-tag{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;padding:.25rem .7rem;border-radius:20px;background:rgba(201,168,76,0.1);border:1px solid var(--gold-dim);color:var(--gold-light);}
+.tidbits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-top:2rem;}
+.tidbit{background:rgba(10,31,20,0.5);border:1px solid var(--gold-dim);border-radius:10px;padding:1.1rem;}
+.tidbit-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.65;margin-bottom:.4rem;}
+.tidbit p{font-size:.88rem;color:var(--cream-dim);line-height:1.6;}
+.teyolia-spread{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;margin-top:2rem;}
+@media(max-width:800px){.teyolia-spread{grid-template-columns:1fr;}}
+.teyolia-spread img{width:100%;border-radius:12px;border:1px solid var(--gold-dim);filter:drop-shadow(0 8px 24px rgba(0,0,0,0.6));}
+.teyolia-text p{font-size:1rem;line-height:1.9;color:var(--cream-dim);margin-bottom:1rem;}
+.teyolia-text p strong{color:var(--gold-light);}
+.core-insight{text-align:center;font-family:'IM Fell English',serif;font-size:clamp(1.4rem,3vw,2.2rem);font-style:italic;color:var(--gold-light);line-height:1.5;padding:2rem;border-top:1px solid var(--gold-dim);border-bottom:1px solid var(--gold-dim);margin:2rem 0;}
+.affinity-map{width:100%;border-radius:12px;border:1px solid var(--gold-dim);filter:drop-shadow(0 8px 24px rgba(0,0,0,0.6));margin-top:2rem;}
+.research-stats{display:flex;flex-wrap:wrap;gap:1rem;margin-top:1.5rem;}
+.r-stat{flex:1;min-width:120px;background:rgba(10,31,20,0.55);border:1px solid var(--gold-dim);border-radius:10px;padding:1rem;text-align:center;}
+.r-stat-n{font-family:'Cinzel',serif;font-size:1.8rem;font-weight:700;color:var(--gold);display:block;}
+.r-stat-l{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(247,242,227,0.5);margin-top:.3rem;display:block;}
+#mar{text-align:center;}
+#mar img{width:min(900px,95%);border-radius:12px;border:1px solid var(--gold-dim);filter:drop-shadow(0 8px 32px rgba(0,0,0,0.7));margin-top:2rem;}
+.spell-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.4rem;margin-top:2rem;}
+.spell-card{background:rgba(10,31,20,0.6);border:1px solid var(--gold-dim);border-radius:12px;padding:1.5rem;transition:border-color .3s,transform .3s;}
+.spell-card:hover{border-color:rgba(201,168,76,0.6);transform:translateY(-4px);}
+.spell-num{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;color:var(--gold);opacity:.6;margin-bottom:.4rem;}
+.spell-name{font-family:'Cinzel',serif;font-size:1rem;color:var(--cream);margin-bottom:.5rem;line-height:1.3;}
+.spell-name em{font-family:'IM Fell English',serif;font-style:italic;color:var(--gold);}
+.spell-why{font-size:.85rem;font-style:italic;color:rgba(247,242,227,0.5);margin-bottom:.8rem;line-height:1.5;}
+.spell-desc{font-size:.88rem;color:var(--cream-dim);line-height:1.6;margin-bottom:1rem;}
+.spell-tags{display:flex;flex-wrap:wrap;gap:.4rem;}
+.spell-tag{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;padding:.2rem .6rem;border-radius:20px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);color:var(--gold-light);}
+#journey img{width:100%;border-radius:12px;border:1px solid var(--gold-dim);filter:drop-shadow(0 8px 24px rgba(0,0,0,0.6));margin-top:2rem;}
+#contact{text-align:center;}
+.contact-cards{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin:2rem auto;max-width:800px;}
+.contact-card{display:flex;align-items:center;gap:.75rem;background:rgba(10,31,20,0.6);border:1px solid var(--gold-dim);border-radius:10px;padding:1rem 1.5rem;text-decoration:none;color:var(--cream);font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;transition:all .3s;min-width:220px;}
+.contact-card:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px);}
+.contact-card-icon{font-size:1.2rem;}
+.tidbits-more{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:2rem auto;max-width:1000px;text-align:left;}
+.closing-quote{font-family:'IM Fell English',serif;font-size:clamp(1rem,2.5vw,1.4rem);font-style:italic;color:var(--gold-light);max-width:600px;margin:3rem auto 1rem;line-height:1.8;}
+.closing-sub{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(201,168,76,0.4);margin-top:.5rem;}
+footer{text-align:center;padding:3rem 2rem;border-top:1px solid var(--gold-dim);position:relative;z-index:10;}
+footer p{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;color:rgba(201,168,76,0.3);text-transform:uppercase;}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div id="sparkles"></div>
 
+<!-- Stickers -->
+<div class="sticker" id="s1" style="left:3%;top:20%;">✨</div>
+<div class="sticker" id="s2" style="left:2%;top:55%;">🍵</div>
+<div class="sticker" id="s3" style="right:3%;top:15%;">🌿</div>
+<div class="sticker" id="s4" style="right:2%;top:50%;">⭐</div>
+<div class="sticker" id="s5" style="left:4%;top:80%;">🕯️</div>
+<div class="sticker" id="s6" style="right:4%;top:80%;">📚</div>
+<div class="sticker" id="s7" style="left:2%;top:38%;">🌸</div>
+<div class="sticker" id="s8" style="right:2%;top:35%;">🍂</div>
+<div class="sticker" id="s9" style="left:5%;top:68%;">🌙</div>
+<div class="sticker" id="s10" style="right:5%;top:65%;">🪶</div>
+<div class="sticker" id="s11" style="left:3%;top:92%;">🍄</div>
+<div class="sticker" id="s12" style="right:3%;top:92%;">🌻</div>
+
+<nav>
+  <a href="#hero" class="nav-logo">S · F</a>
+  <ul class="nav-links">
+    <li><a href="#grimoire">Grimoire</a></li>
+    <li><a href="#teyolia">Teyolia</a></li>
+    <li><a href="#automations">Automations</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#contact">Summon</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <img src="Cover.png" alt="Sarai Flores Portfolio Cover" class="hero-img reveal">
+  <h1 class="hero-name reveal">Sarai Flores</h1>
+  <p class="hero-tagline reveal">First time on this planet. Endlessly curious about everyone else who is too.</p>
+  <div class="hero-pills reveal">
+    <span class="pill">Product Researcher</span>
+    <span class="pill">AI Automation Builder</span>
+    <span class="pill">Building Teyolia 🌿</span>
+    <span class="pill">Pinterest since invite-only</span>
+    <span class="pill">Bilingual EN/ES</span>
+  </div>
+  <p class="scroll-hint reveal">✦ scroll to explore ✦</p>
+</section>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<section id="grimoire">
+  <div class="parchment-section">
+    <p class="sec-label reveal">The Spellbook</p>
+    <h2 class="sec-title reveal">Grimoire <em>— aka: Who I Am</em></h2>
+    <div class="sec-divider reveal"></div>
+    <div class="grimoire-grid reveal">
+      <div class="story-block">
+        <p class="sec-label">My Story</p>
+        <p>I started my career as a <strong>lead preschool teacher</strong> — and what that taught me, more than anything, was that the same information lands completely differently depending on who's receiving it.</p>
+        <p>From teaching two year olds emergency procedures to teaching sixty year old truck drivers how to use tablets as federal laws changed their entire workflow — I've spent my career understanding how different people learn, process, and experience things.</p>
+        <p>That question has followed me everywhere. It's why I build systems before I build solutions. It's why I research before I create. It's why I named my app after a Nahuatl word for the soul.</p>
+      </div>
+      <div class="skills-block">
+        <p class="skill-group-title">What I Do</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Product Thinking</span><span class="skill-tag">UX Research</span><span class="skill-tag">Qualitative Methods</span><span class="skill-tag">Affinity Mapping</span><span class="skill-tag">Jobs to be Done</span><span class="skill-tag">AI Automation</span><span class="skill-tag">Enablement Design</span><span class="skill-tag">Systems Thinking</span><span class="skill-tag">Bilingual EN/ES</span><span class="skill-tag">Storytelling</span>
+        </div>
+        <p class="skill-group-title">AI Tools I Build With</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Claude</span><span class="skill-tag">ChatGPT</span><span class="skill-tag">OpenAI API</span><span class="skill-tag">Zapier</span><span class="skill-tag">Make</span><span class="skill-tag">Notion AI</span>
+        </div>
+        <p class="skill-group-title">Platforms</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Salesforce</span><span class="skill-tag">ChurnZero</span><span class="skill-tag">GitHub</span><span class="skill-tag">Figma</span><span class="skill-tag">Google Workspace</span>
+        </div>
+      </div>
+    </div>
+    <div class="tidbits-grid reveal">
+      <div class="tidbit"><p class="tidbit-label">Origin story</p><p>Started as a lead preschool teacher. Still asking the same question: how does this person actually experience the world?</p></div>
+      <div class="tidbit"><p class="tidbit-label">Currently building</p><p>Teyolia — a whimsical book tracking app. Researching before building a single feature. 🌿</p></div>
+      <div class="tidbit"><p class="tidbit-label">Also building</p><p>Brewjitas — Mexican-inspired canned cold brew with my best friend. Chocolate abuelita. Butter pecan.</p></div>
+      <div class="tidbit"><p class="tidbit-label">In my purse</p><p>A deck of Staccs — backed on Kickstarter. Chaos and strategy in tiny form.</p></div>
+      <div class="tidbit"><p class="tidbit-label">Mom of three</p><p>Homeschooling, volunteering at school, believing early education shapes everything.</p></div>
+      <div class="tidbit"><p class="tidbit-label">Currently learning</p><p>Python and pandas. SQL. How to turn every question into something worth building.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<section id="teyolia">
+  <div class="parchment-section">
+    <p class="sec-label reveal">My Biggest Project</p>
+    <h2 class="sec-title reveal">Teyolia <em>— that which gives life to people</em></h2>
+    <div class="sec-divider reveal"></div>
+    <div class="teyolia-spread reveal">
+      <div class="teyolia-text">
+        <p>In Nahuatl, <strong>teyolia</strong> means "that which gives life to people" — the vital force that lives in the heart and carries identity, memory, and deepest emotions forward, even beyond death.</p>
+        <p>I named this project after it because that's exactly what books do. They live in your heart. They shape who you are. They hold feelings you can't find anywhere else.</p>
+        <p>It started with a developer named <strong>Rusty</strong>. I messaged him on Instagram about his desktop game. He was generous and encouraging. That conversation sparked everything — what if your little character lived their own library life while you worked?</p>
+        <p>From there Teyolia grew into a book tracking app, a journal, a community. Her name is <strong>Mar</strong> — ocean in Spanish. She lives in <strong>Willowmere</strong> with her cat <strong>Sombra</strong>.</p>
+        <div class="research-stats">
+          <div class="r-stat"><span class="r-stat-n">4</span><span class="r-stat-l">Wave 1 Readers</span></div>
+          <div class="r-stat"><span class="r-stat-n">6</span><span class="r-stat-l">Themes Found</span></div>
+          <div class="r-stat"><span class="r-stat-n">4</span><span class="r-stat-l">Jobs to be Done</span></div>
+          <div class="r-stat"><span class="r-stat-n">1</span><span class="r-stat-l">Core Insight</span></div>
+        </div>
+      </div>
+      <img src="Teyolia.png" alt="Teyolia Origin Story">
+    </div>
+    <div class="core-insight reveal">
+      "People don't want to track books.<br>They want to live a reading life."
+      <span style="font-size:.85em;color:rgba(232,201,122,0.6);display:block;margin-top:.5rem;">Teyolia is the sanctuary when the real one isn't available.</span>
+    </div>
+    <img src="Affinity.png" alt="Teyolia Reader Research Affinity Map" class="affinity-map reveal">
+  </div>
+</section>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<section id="mar">
+  <div class="parchment-section">
+    <p class="sec-label reveal">Heart of Willowmere</p>
+    <h2 class="sec-title reveal">Meet Mar <em>&amp; Sombra</em></h2>
+    <div class="sec-divider reveal"></div>
+    <img src="Mar_Sombra.png" alt="Meet Mar and Sombra" class="reveal">
+  </div>
+</section>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<section id="automations">
+  <div class="parchment-section">
+    <p class="sec-label reveal">The Grimoire</p>
+    <h2 class="sec-title reveal">Automations <em>— 5 spells I cast independently</em></h2>
+    <div class="sec-divider reveal"></div>
+    <p class="reveal" style="font-style:italic;color:rgba(247,242,227,0.4);margin-bottom:.5rem;">"Systems are spells. I just write them better." 🌿</p>
+    <div class="spell-grid reveal">
+      <div class="spell-card">
+        <p class="spell-num">01 · Zapier + OpenAI + Gmail</p>
+        <h3 class="spell-name">Churn Risk Detection <em>Alert System</em></h3>
+        <p class="spell-why">Because by the time you notice churn, you're already behind.</p>
+        <p class="spell-desc">AI analyzes health score, usage patterns, support tickets, and renewal timing — then sends a CSM-ready intervention plan automatically.</p>
+        <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Google Sheets</span></div>
+      </div>
+      <div class="spell-card">
+        <p class="spell-num">02 · Zapier + OpenAI + Gmail</p>
+        <h3 class="spell-name">Welcome Email <em>Generator</em></h3>
+        <p class="spell-why">Generic onboarding emails don't build relationships. Personalized ones do.</p>
+        <p class="spell-desc">AI reads company and industry and writes a fully personalized 30-day onboarding email the moment a new customer is created.</p>
+        <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Google Sheets</span></div>
+      </div>
+      <div class="spell-card">
+        <p class="spell-num">03 · Schedule + Sheets + OpenAI</p>
+        <h3 class="spell-name">Weekly Portfolio Health <em>Digest</em></h3>
+        <p class="spell-why">Monday mornings shouldn't start with scrambling.</p>
+        <p class="spell-desc">Every Monday, AI delivers a prioritized action plan — risk levels, recommendations per account, and an executive summary of portfolio health.</p>
+        <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Google Sheets</span></div>
+      </div>
+      <div class="spell-card">
+        <p class="spell-num">04 · Zapier + OpenAI + Gmail</p>
+        <h3 class="spell-name">Meeting Prep <em>Generator</em></h3>
+        <p class="spell-why">The best customer calls start before you dial in.</p>
+        <p class="spell-desc">Drop in account data and receive talking points, risks, expansion opportunities, suggested questions, and an executive summary. Seconds.</p>
+        <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Notion API</span></div>
+      </div>
+      <div class="spell-card">
+        <p class="spell-num">05 · Zapier + OpenAI + Gmail</p>
+        <h3 class="spell-name">NPS Response <em>Classifier</em></h3>
+        <p class="spell-why">Customer feedback is only valuable if you actually act on it.</p>
+        <p class="spell-desc">AI classifies sentiment, tags categories, assigns urgency, and recommends CSM actions — all before a human reads the response.</p>
+        <div class="spell-tags"><span class="spell-tag">Zapier</span><span class="spell-tag">OpenAI API</span><span class="spell-tag">Gmail</span><span class="spell-tag">Sheets API</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<section id="journey">
+  <div class="parchment-section">
+    <p class="sec-label reveal">The Adventure</p>
+    <h2 class="sec-title reveal">Journey <em>— it's been quite the adventure</em></h2>
+    <div class="sec-divider reveal"></div>
+    <p class="reveal" style="font-style:italic;color:rgba(247,242,227,0.4);margin-bottom:.5rem;">"Not all who wander are lost. Some are building." 🌿</p>
+    <img src="Journey.png" alt="Sarai's Career Journey Map" class="reveal">
+  </div>
+</section>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<section id="contact">
+  <div class="parchment-section">
+    <p class="sec-label reveal">Summon</p>
+    <h2 class="sec-title reveal">Don't Be <em>Shy</em></h2>
+    <div class="sec-divider reveal"></div>
+    <div class="contact-cards reveal">
+      <a href="mailto:Halmeonilarry@gmail.com" class="contact-card"><span class="contact-card-icon">✉</span><span>Halmeonilarry@gmail.com</span></a>
+      <a href="https://linkedin.com/in/saraimflores" target="_blank" class="contact-card"><span class="contact-card-icon">in</span><span>linkedin.com/in/saraimflores</span></a>
+      <a href="https://github.com/HalmeoniLarry" target="_blank" class="contact-card"><span class="contact-card-icon">⌥</span><span>github.com/HalmeoniLarry</span></a>
+      <a href="https://forms.gle/ZsviHVnkSqCfZY1o9" target="_blank" class="contact-card"><span class="contact-card-icon">🌿</span><span>Teyolia Research</span></a>
+    </div>
+    <div class="tidbits-more reveal">
+      <div class="tidbit"><p class="tidbit-label">Reader</p><p>Book lover and library wanderer. I collect mugs and old books.</p></div>
+      <div class="tidbit"><p class="tidbit-label">Founder</p><p>Co-own Brewjitas — Mexican-inspired cold brew. Chocolate abuelita flavor exists because it should.</p></div>
+      <div class="tidbit"><p class="tidbit-label">Gamer</p><p>Cozy games and pixel art enjoyer. Big fan of tiny details.</p></div>
+      <div class="tidbit"><p class="tidbit-label">Always</p><p>Forever learning and always curious. That's the whole thing.</p></div>
+    </div>
+    <p class="closing-quote reveal">"I care deeply about people, stories, and building things that make life feel a little more magical."</p>
+    <p class="closing-sub reveal">✦ Sarai Flores · Avondale, Arizona · Open to Remote ✦</p>
+    <div style="margin-top:3rem;text-align:center;" class="reveal">
+      <img src="Closing.png" alt="Thank You for Visiting Willowmere" style="width:min(480px,90%);border-radius:12px;border:1px solid var(--gold-dim);filter:drop-shadow(0 8px 24px rgba(0,0,0,0.7));">
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Teyolia — that which gives life to people · Built for the books that gave something to you</p>
+  <p style="margin-top:.5rem;">✦ Thank you for visiting Willowmere ✦</p>
+</footer>
+
+<script>
+const sc=document.getElementById('sparkles');
+for(let i=0;i<35;i++){const s=document.createElement('div');s.className='sparkle';s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';s.style.setProperty('--d',(2+Math.random()*4)+'s');s.style.setProperty('--delay',(Math.random()*5)+'s');sc.appendChild(s);}
+
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+document.querySelectorAll('.sticker').forEach(s=>{
+  let drag=false,ox=0,oy=0;
+  s.addEventListener('mousedown',e=>{drag=true;const r=s.getBoundingClientRect();ox=e.clientX-r.left;oy=e.clientY-r.top;s.style.transition='none';e.preventDefault();});
+  document.addEventListener('mousemove',e=>{if(!drag)return;s.style.left=(e.clientX-ox)+'px';s.style.top=(e.clientY-oy)+'px';s.style.right='auto';});
+  document.addEventListener('mouseup',()=>{drag=false;s.style.transition='transform .2s';});
+  s.addEventListener('touchstart',e=>{drag=true;const r=s.getBoundingClientRect();ox=e.touches[0].clientX-r.left;oy=e.touches[0].clientY-r.top;e.preventDefault();},{passive:false});
+  s.addEventListener('touchmove',e=>{if(!drag)return;s.style.left=(e.touches[0].clientX-ox)+'px';s.style.top=(e.touches[0].clientY-oy)+'px';s.style.right='auto';e.preventDefault();},{passive:false});
+  s.addEventListener('touchend',()=>drag=false);
+});
+</script>
+</body>
+</html>
