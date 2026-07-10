@@ -3,1022 +3,386 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sarai Flores — Product Research · AI Automation · Builder</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<title>Sarai Flores — Portfolio of Willowmere</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=IM+Fell+English:ital@0;1&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
   :root {
-    --forest: #0A3323;
-    --moss: #1a5c3a;
-    --fern: #2d7a52;
-    --sage: #65743A;
     --gold: #C9A84C;
-    --gold-light: #EFDD8D;
+    --gold-light: #E8C97A;
+    --green-deep: #0A1F14;
+    --green-mid: #1A4A2E;
     --cream: #F7F2E3;
-    --midnight: #04100a;
-    --ink: #071209;
+    --brown: #2C1A0E;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--midnight);
-    color: var(--cream);
-    font-family: 'Crimson Pro', Georgia, serif;
-    font-size: 18px;
-    line-height: 1.7;
-    cursor: none;
-    overflow-x: hidden;
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--brown);
+    overflow: hidden;
+    font-family: 'IM Fell English', serif;
   }
 
-  #cursor {
+  /* BACKGROUND */
+  #bg {
+    position: fixed; inset: 0;
+    background-image: url('Background.png');
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+  }
+  #bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(10, 8, 4, 0.35);
+  }
+
+  /* SPARKLES */
+  .sparkle {
     position: fixed;
-    width: 12px; height: 12px;
-    background: var(--gold);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    box-shadow: 0 0 10px rgba(201,168,76,0.8);
-  }
-
-  canvas#trail {
-    position: fixed; inset: 0;
-    pointer-events: none; z-index: 9998;
-  }
-
-  .stars-bg {
-    position: fixed; inset: 0;
-    pointer-events: none; z-index: 0; overflow: hidden;
-  }
-
-  .star-dot {
-    position: absolute;
+    width: 3px; height: 3px;
     background: var(--gold-light);
     border-radius: 50%;
-    animation: twinkle var(--d) ease-in-out infinite var(--delay);
-    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s);
   }
-
   @keyframes twinkle {
-    0%,100% { opacity: 0; transform: scale(1); }
-    50% { opacity: var(--o); transform: scale(1.3); }
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.5); }
   }
 
-  canvas#fireflies {
+  /* BOOK WRAPPER */
+  #book-wrapper {
     position: fixed; inset: 0;
-    pointer-events: none; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10;
+    padding: 20px;
   }
 
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100; padding: 1.2rem 3rem;
-    display: flex; justify-content: space-between; align-items: center;
-    background: linear-gradient(to bottom, rgba(4,16,10,0.97), transparent);
+  /* BOOK */
+  #book {
+    position: relative;
+    width: min(1100px, 95vw);
+    aspect-ratio: 16/9;
+    filter: drop-shadow(0 20px 60px rgba(0,0,0,0.8));
   }
 
-  .nav-logo {
-    font-family: 'Cinzel', serif; font-size: 0.95rem;
-    color: var(--gold); letter-spacing: 0.25em; text-decoration: none;
-  }
-
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    font-family: 'Cinzel', serif; font-size: 0.65rem;
-    letter-spacing: 0.18em; color: var(--gold-light);
-    text-decoration: none; opacity: 0.75;
-    transition: opacity 0.3s; text-transform: uppercase; cursor: none;
-  }
-  .nav-links a:hover { opacity: 1; color: var(--gold); }
-
-  #hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    position: relative; padding: 7rem 2rem 3rem; overflow: hidden;
-  }
-
-  .hero-bg {
+  /* PAGES */
+  .page {
     position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse at 25% 60%, rgba(26,92,58,0.22) 0%, transparent 55%),
-      radial-gradient(ellipse at 75% 30%, rgba(10,51,35,0.28) 0%, transparent 50%),
-      var(--midnight);
-  }
-
-  .vine {
-    position: absolute; top: 0; bottom: 0;
-    width: 260px; opacity: 0.18; pointer-events: none;
-  }
-  .vine-left { left: -20px; }
-  .vine-right { right: -20px; transform: scaleX(-1); }
-
-  @keyframes starPulse {
-    0%,100% { opacity: 0.3; transform: scale(1) rotate(0deg); }
-    50% { opacity: 1; transform: scale(1.25) rotate(18deg); }
-  }
-
-  .star-badge { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1.2rem; }
-  .star-badge span { color: var(--gold); font-size: 0.65rem; animation: starPulse 2.5s ease-in-out infinite; }
-  .star-badge span:nth-child(2) { animation-delay: 0.4s; font-size: 0.45rem; }
-  .star-badge span:nth-child(3) { animation-delay: 0.8s; }
-  .star-badge span:nth-child(4) { animation-delay: 1.2s; font-size: 0.45rem; }
-  .star-badge span:nth-child(5) { animation-delay: 1.6s; }
-
-  h1 {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(3.2rem, 9vw, 6.5rem);
-    font-weight: 700; line-height: 1; text-align: center;
-    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, #a07830 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; letter-spacing: 0.04em; margin-bottom: 0.4rem;
-  }
-
-  .hero-role {
-    font-family: 'Cinzel', serif; font-size: clamp(0.7rem, 1.8vw, 0.9rem);
-    letter-spacing: 0.32em; color: var(--fern);
-    text-transform: uppercase; text-align: center; margin-bottom: 1.5rem;
-  }
-
-  .hero-tagline {
-    font-family: 'IM Fell English', serif; font-style: italic;
-    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-    color: var(--cream); text-align: center;
-    max-width: 520px; margin-bottom: 3rem;
-    opacity: 0.88; line-height: 1.45;
-  }
-  .hero-tagline strong { color: var(--gold); font-style: normal; font-weight: 600; }
-
-  .stats {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 1.2rem; max-width: 780px; width: 100%; margin-bottom: 2.8rem;
-  }
-
-  .stat {
-    background: rgba(10,51,35,0.55);
-    border: 1px solid rgba(201,168,76,0.18);
-    border-radius: 8px; padding: 1.1rem; text-align: center;
-    transition: border-color 0.3s, transform 0.3s;
-    position: relative; overflow: hidden;
-  }
-  .stat::after {
-    content: '✦'; position: absolute; top: 6px; right: 8px;
-    font-size: 0.5rem; color: var(--gold); opacity: 0.4;
-    animation: starPulse 3s ease-in-out infinite;
-  }
-  .stat:hover { border-color: rgba(201,168,76,0.45); transform: translateY(-3px); }
-
-  .stat-n {
-    font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 700;
-    color: var(--gold); display: block; line-height: 1; margin-bottom: 0.3rem;
-  }
-  .stat-l { font-size: 0.72rem; color: rgba(247,242,227,0.55); line-height: 1.3; }
-
-  .hero-btns { display: flex; gap: 1rem; }
-
-  .btn {
-    font-family: 'Cinzel', serif; font-size: 0.7rem;
-    letter-spacing: 0.15em; text-transform: uppercase;
-    padding: 0.75rem 1.8rem; border-radius: 4px;
-    text-decoration: none; transition: all 0.3s; cursor: none;
-  }
-  .btn-gold { background: var(--gold); color: var(--midnight); border: 1px solid var(--gold); }
-  .btn-gold:hover { background: var(--gold-light); box-shadow: 0 0 25px rgba(201,168,76,0.4); }
-  .btn-outline { background: transparent; color: var(--gold); border: 1px solid rgba(201,168,76,0.35); }
-  .btn-outline:hover { border-color: var(--gold); background: rgba(201,168,76,0.07); }
-
-  .divider {
-    display: flex; align-items: center; gap: 1rem;
-    max-width: 900px; margin: 0 auto; padding: 0 2rem;
-  }
-  .divider::before, .divider::after {
-    content: ''; flex: 1; height: 1px;
-    background: linear-gradient(to right, transparent, rgba(201,168,76,0.35), transparent);
-  }
-  .divider span { font-family: 'Cinzel', serif; color: var(--gold); font-size: 1rem; opacity: 0.5; }
-
-  section { max-width: 1080px; margin: 0 auto; padding: 3rem 2rem; position: relative; }
-
-  .sec-label {
-    font-family: 'Cinzel', serif; font-size: 0.65rem;
-    letter-spacing: 0.32em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 0.4rem; opacity: 0.75;
-  }
-
-  .sec-stars { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.4rem; }
-  .sec-stars span { color: var(--gold); font-size: 0.6rem; animation: starPulse 2.5s ease-in-out infinite; }
-  .sec-stars span:nth-child(even) { animation-delay: 0.5s; font-size: 0.42rem; }
-
-  .sec-title {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
-    color: var(--cream); margin-bottom: 2rem; line-height: 1.2;
-  }
-  .sec-title em { font-family: 'IM Fell English', serif; font-style: italic; color: var(--gold); }
-
-  #about { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
-
-  .about-text p { color: rgba(247,242,227,0.78); margin-bottom: 1.1rem; font-size: 1.02rem; }
-  .about-text strong { color: var(--gold-light); font-weight: 600; }
-
-  .pull-quote {
-    font-family: 'IM Fell English', serif; font-style: italic;
-    font-size: 1.4rem; color: var(--gold); line-height: 1.4;
-    border-left: 2px solid var(--gold); padding-left: 1.4rem; margin: 1.8rem 0;
-  }
-
-  .awards { display: flex; flex-direction: column; gap: 0.9rem; }
-
-  .award {
-    background: rgba(10,51,35,0.5);
-    border: 1px solid rgba(201,168,76,0.18);
-    border-radius: 8px; padding: 1.1rem 1.4rem;
-    display: flex; align-items: center; gap: 1rem; transition: border-color 0.3s;
-  }
-  .award:hover { border-color: rgba(201,168,76,0.45); }
-  .award-icon { font-size: 1.3rem; width: 36px; text-align: center; }
-  .award-name { font-family: 'Cinzel', serif; font-size: 0.85rem; color: var(--gold-light); display: block; margin-bottom: 0.15rem; }
-  .award-sub { font-size: 0.8rem; color: rgba(247,242,227,0.45); }
-
-  .projects-intro { color: rgba(247,242,227,0.65); max-width: 620px; margin-bottom: 2.8rem; font-size: 1rem; }
-
-  .project-card {
-    background: rgba(10,51,35,0.38);
-    border: 1px solid rgba(201,168,76,0.14);
-    border-radius: 12px; margin-bottom: 1.5rem;
-    overflow: hidden; transition: border-color 0.3s, transform 0.3s; position: relative;
-  }
-  .project-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-    opacity: 0; transition: opacity 0.3s;
-  }
-  .project-card:hover { border-color: rgba(201,168,76,0.32); transform: translateY(-3px); }
-  .project-card:hover::before { opacity: 1; }
-
-  .flipbook {
-    position: relative; background: rgba(4,16,10,0.8);
-    border-bottom: 1px solid rgba(201,168,76,0.12);
-    overflow: hidden; height: 220px;
-  }
-
-  .flipbook-slides {
-    display: flex; height: 100%;
-    transition: transform 0.4s ease;
-  }
-
-  .flipbook-slide {
-    min-width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-  }
-
-  .flipbook-slide img {
-    max-width: 100%; max-height: 100%;
-    object-fit: contain; opacity: 0.9;
-  }
-
-  .flip-btn {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    background: rgba(4,16,10,0.85);
-    border: 1px solid rgba(201,168,76,0.3);
-    color: var(--gold); width: 32px; height: 32px;
-    border-radius: 50%; font-size: 0.9rem;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s; z-index: 10; cursor: none;
-  }
-  .flip-btn:hover { background: rgba(201,168,76,0.15); border-color: var(--gold); }
-  .flip-prev { left: 10px; }
-  .flip-next { right: 10px; }
-
-  .flip-dots {
-    position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
-    display: flex; gap: 6px;
-  }
-  .flip-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: rgba(201,168,76,0.3); transition: background 0.3s; cursor: pointer;
-  }
-  .flip-dot.active { background: var(--gold); }
-
-  .project-body { padding: 2rem; }
-
-  .project-num {
-    font-family: 'Cinzel', serif; font-size: 0.62rem;
-    letter-spacing: 0.2em; color: var(--gold); opacity: 0.55; margin-bottom: 0.4rem;
-  }
-
-  .project-title { font-family: 'Cinzel', serif; font-size: 1.2rem; color: var(--cream); margin-bottom: 0.45rem; }
-  .project-title em { font-family: 'IM Fell English', serif; font-style: italic; color: var(--gold); }
-
-  .project-why {
-    font-style: italic; color: rgba(247,242,227,0.45); font-size: 0.92rem;
-    margin-bottom: 0.9rem; padding-left: 1rem; border-left: 1px solid rgba(201,168,76,0.18);
-  }
-
-  .project-desc { color: rgba(247,242,227,0.72); font-size: 0.97rem; margin-bottom: 1.3rem; }
-
-  .tags { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 1.1rem; }
-  .tag {
-    font-family: 'Cinzel', serif; font-size: 0.58rem;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    padding: 0.25rem 0.7rem;
-    background: rgba(201,168,76,0.08);
-    border: 1px solid rgba(201,168,76,0.22);
-    border-radius: 20px; color: var(--gold-light);
-  }
-
-  .resume-line {
-    font-size: 0.88rem; color: rgba(247,242,227,0.45); font-style: italic;
-    padding: 0.7rem 0.9rem; background: rgba(0,0,0,0.18);
-    border-radius: 4px; border-left: 2px solid rgba(201,168,76,0.25);
-  }
-
-  .exp-item {
-    margin-bottom: 2.8rem; padding-left: 2rem;
-    border-left: 1px solid rgba(201,168,76,0.18); position: relative;
-  }
-  .exp-item::before {
-    content: ''; position: absolute; left: -5px; top: 8px;
-    width: 9px; height: 9px; border-radius: 50%;
-    background: var(--gold); box-shadow: 0 0 10px rgba(201,168,76,0.5);
-  }
-  .exp-co { font-family: 'Cinzel', serif; font-size: 1.05rem; color: var(--gold-light); margin-bottom: 0.2rem; }
-  .exp-role { font-size: 0.88rem; color: rgba(247,242,227,0.5); letter-spacing: 0.04em; margin-bottom: 0.9rem; }
-  .exp-list { list-style: none; padding: 0; }
-  .exp-list li { color: rgba(247,242,227,0.72); font-size: 0.95rem; padding: 0.28rem 0 0.28rem 1.2rem; position: relative; }
-  .exp-list li::before { content: '✦'; position: absolute; left: 0; top: 0.55rem; color: var(--gold); font-size: 0.45rem; }
-
-  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-  .skill-group { background: rgba(10,51,35,0.38); border: 1px solid rgba(201,168,76,0.14); border-radius: 8px; padding: 1.4rem; }
-  .skill-group-title { font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.9rem; }
-  .skill-list { list-style: none; padding: 0; }
-  .skill-list li { font-size: 0.88rem; color: rgba(247,242,227,0.65); padding: 0.22rem 0; border-bottom: 1px solid rgba(201,168,76,0.07); }
-  .skill-list li:last-child { border-bottom: none; }
-
-  #contact { text-align: center; }
-  .contact-links { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
-  .contact-link {
-    font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.15em;
-    text-transform: uppercase; color: var(--gold); text-decoration: none;
-    padding: 0.75rem 1.4rem; border: 1px solid rgba(201,168,76,0.28);
-    border-radius: 4px; transition: all 0.3s; cursor: none;
-  }
-  .contact-link:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); box-shadow: 0 0 18px rgba(201,168,76,0.18); }
-
-  footer {
-    text-align: center; padding: 2rem;
-    font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.12em;
-    color: rgba(247,242,227,0.25); border-top: 1px solid rgba(201,168,76,0.08);
-  }
-
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s ease, transform 0.75s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* Grimoire flipbook */
-  .grimoire {
-    position: relative;
-    perspective: 2000px;
-    margin-bottom: 2rem;
-  }
-
-  .grimoire-inner {
-    position: relative;
-    min-height: 420px;
-  }
-
-  .grimoire-page {
-    display: none;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    background: rgba(10,51,35,0.38);
-    border: 1px solid rgba(201,168,76,0.18);
-    border-radius: 12px;
+    border-radius: 4px 12px 12px 4px;
     overflow: hidden;
-    animation: pageFlipIn 0.6s ease forwards;
-    transform-origin: left center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateX(30px);
+  }
+  .page.active {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateX(0);
+  }
+  .page.exit-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    pointer-events: none;
+  }
+  .page img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
-  .grimoire-page.active { display: grid; }
-
-  .grimoire-page.reverse { grid-template-columns: 1fr 1fr; }
-
-  @keyframes pageFlipIn {
-    0% { opacity: 0; transform: rotateY(-15deg) scale(0.97); }
-    100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+  /* CLOSING PAGE - portrait orientation special handling */
+  .page.closing img {
+    object-fit: contain;
+    background: #0d1a0f;
   }
 
-  @keyframes pageFlipOut {
-    0% { opacity: 1; transform: rotateY(0deg) scale(1); }
-    100% { opacity: 0; transform: rotateY(15deg) scale(0.97); }
-  }
-
-  .grimoire-page.flipping-out {
-    animation: pageFlipOut 0.3s ease forwards;
-  }
-
-  .page-img {
-    position: relative;
-    background: rgba(4,16,10,0.8);
-    border-right: 1px solid rgba(201,168,76,0.12);
+  /* NAV ARROWS */
+  .nav-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    background: rgba(10, 31, 20, 0.75);
+    border: 1px solid rgba(201, 168, 76, 0.4);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-size: 1.4rem;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    min-height: 420px; overflow: hidden;
+    transition: all 0.3s;
+    backdrop-filter: blur(4px);
+  }
+  .nav-arrow:hover {
+    background: rgba(201, 168, 76, 0.2);
+    border-color: var(--gold);
+    transform: translateY(-50%) scale(1.1);
+  }
+  .nav-arrow:disabled {
+    opacity: 0.3;
+    cursor: default;
+    transform: translateY(-50%);
+  }
+  #prev { left: 12px; }
+  #next { right: 12px; }
+
+  /* PAGE DOTS */
+  #dots {
+    position: fixed;
+    bottom: 18px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 8px;
+    z-index: 100;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(201, 168, 76, 0.3);
+    border: 1px solid rgba(201, 168, 76, 0.5);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .dot.active {
+    background: var(--gold);
+    transform: scale(1.3);
   }
 
-  .grimoire-page.reverse .page-img {
-    border-right: none;
-    border-left: 1px solid rgba(201,168,76,0.12);
+  /* PAGE LABEL */
+  #page-label {
+    position: fixed;
+    bottom: 40px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: rgba(201, 168, 76, 0.6);
+    text-transform: uppercase;
+    z-index: 100;
+    white-space: nowrap;
   }
 
-  .page-img img {
-    max-width: 100%; max-height: 380px;
-    object-fit: contain; opacity: 0.92;
-    transition: opacity 0.3s;
+  /* STICKERS */
+  .sticker {
+    position: fixed;
+    cursor: grab;
+    user-select: none;
+    z-index: 200;
+    font-size: 1.8rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    transition: transform 0.2s;
+  }
+  .sticker:hover { transform: scale(1.2) rotate(5deg); }
+  .sticker:active { cursor: grabbing; }
+
+  /* MOBILE */
+  @media (max-width: 700px) {
+    #book {
+      aspect-ratio: 9/16;
+      width: min(380px, 95vw);
+    }
+    .page img { object-fit: cover; object-position: left center; }
+    #prev { left: 4px; }
+    #next { right: 4px; }
+    .nav-arrow { width: 38px; height: 38px; font-size: 1rem; }
   }
 
-  .page-img:hover img { opacity: 1; }
-
-  .page-num-badge {
-    position: absolute; bottom: 12px; right: 12px;
-    font-family: 'Cinzel', serif; font-size: 0.6rem;
-    letter-spacing: 0.15em; color: var(--gold);
-    opacity: 0.5; background: rgba(4,16,10,0.8);
-    padding: 0.2rem 0.6rem; border-radius: 20px;
-    border: 1px solid rgba(201,168,76,0.2);
-  }
-
-  .page-info {
-    padding: 2.2rem 2rem;
-    display: flex; flex-direction: column; justify-content: center;
-    gap: 0.8rem;
-  }
-
-  /* Grimoire nav */
-  .grimoire-nav {
-    display: flex; align-items: center; justify-content: center;
-    gap: 2rem; margin-top: 1.5rem;
-  }
-
-  .grim-btn {
-    font-family: 'Cinzel', serif; font-size: 0.7rem;
-    letter-spacing: 0.15em; text-transform: uppercase;
-    color: var(--gold); background: transparent;
-    border: 1px solid rgba(201,168,76,0.3);
-    padding: 0.6rem 1.4rem; border-radius: 4px;
-    cursor: none; transition: all 0.3s;
-  }
-  .grim-btn:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
-  .grim-btn:disabled { opacity: 0.25; pointer-events: none; }
-
-  .grim-dots { display: flex; gap: 8px; }
-  .grim-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: rgba(201,168,76,0.25); transition: all 0.3s; cursor: pointer;
-  }
-  .grim-dot.active { background: var(--gold); transform: scale(1.2); }
-    position: absolute; color: var(--gold); pointer-events: none;
-    animation: pgStarAnim var(--psd) ease-in-out infinite var(--psdelay);
-    opacity: 0; font-size: var(--psz); user-select: none;
-  }
-
-  @keyframes pgStarAnim {
-    0% { opacity: 0; transform: translateY(0) rotate(0deg) scale(0.8); }
-    20% { opacity: var(--pso); }
-    80% { opacity: var(--pso); }
-    100% { opacity: 0; transform: translateY(-15px) rotate(25deg) scale(1.1); }
-  }
-
-  @media (max-width: 768px) {
-    .stats { grid-template-columns: repeat(2,1fr); }
-    #about { grid-template-columns: 1fr; gap: 3rem; }
-    .skills-grid { grid-template-columns: 1fr; }
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { gap: 1.2rem; }
-    .flipbook { height: 160px; }
+  /* KEYBOARD HINT */
+  #hint {
+    position: fixed;
+    top: 16px; right: 16px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: rgba(201, 168, 76, 0.4);
+    z-index: 100;
   }
 </style>
 </head>
 <body>
 
-<div class="stars-bg" id="stars-bg"></div>
-<canvas id="fireflies"></canvas>
-<canvas id="trail"></canvas>
-<div id="cursor"></div>
+<div id="bg"></div>
 
-<nav>
-  <a href="#hero" class="nav-logo">S · F</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#projects">Grimoire</a></li>
-    <li><a href="#experience">Journey</a></li>
-    <li><a href="#teyolia">Teyolia</a></li>
-        <li><a href="#contact">Summon</a></li>
-  </ul>
-</nav>
+<!-- Sparkles -->
+<div id="sparkles"></div>
 
-<section id="hero">
-  <div class="hero-bg"></div>
+<!-- Book -->
+<div id="book-wrapper">
+  <div id="book">
 
-  <svg class="vine vine-left" viewBox="0 0 260 900" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="#65743A" fill="none" stroke-width="1.2">
-      <path d="M130 900 Q125 700 95 500 Q65 300 85 50"/>
-      <path d="M95 750 Q55 720 18 685"/><path d="M98 680 Q138 650 158 610"/>
-      <path d="M96 610 Q56 575 20 545"/><path d="M94 540 Q134 505 154 465"/>
-      <path d="M92 470 Q48 438 16 402"/><path d="M90 395 Q130 358 150 318"/>
-      <path d="M88 325 Q44 292 14 255"/><path d="M87 255 Q127 218 147 178"/>
-      <ellipse cx="20" cy="685" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(-22,20,685)"/>
-      <ellipse cx="160" cy="610" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(14,160,610)"/>
-      <ellipse cx="22" cy="545" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(-28,22,545)"/>
-      <ellipse cx="156" cy="465" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(10,156,465)"/>
-      <ellipse cx="18" cy="402" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(-32,18,402)"/>
-      <ellipse cx="152" cy="318" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(18,152,318)"/>
-      <ellipse cx="16" cy="255" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(-18,16,255)"/>
-      <ellipse cx="149" cy="178" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(22,149,178)"/>
-    </g>
-  </svg>
-
-  <svg class="vine vine-right" viewBox="0 0 260 900" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="#65743A" fill="none" stroke-width="1.2">
-      <path d="M130 900 Q125 700 95 500 Q65 300 85 50"/>
-      <path d="M95 750 Q55 720 18 685"/><path d="M98 680 Q138 650 158 610"/>
-      <path d="M96 610 Q56 575 20 545"/><path d="M94 540 Q134 505 154 465"/>
-      <path d="M92 470 Q48 438 16 402"/><path d="M90 395 Q130 358 150 318"/>
-      <path d="M88 325 Q44 292 14 255"/><path d="M87 255 Q127 218 147 178"/>
-      <ellipse cx="20" cy="685" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(-22,20,685)"/>
-      <ellipse cx="160" cy="610" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(14,160,610)"/>
-      <ellipse cx="22" cy="545" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(-28,22,545)"/>
-      <ellipse cx="156" cy="465" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(10,156,465)"/>
-      <ellipse cx="18" cy="402" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(-32,18,402)"/>
-      <ellipse cx="152" cy="318" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(18,152,318)"/>
-      <ellipse cx="16" cy="255" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(-18,16,255)"/>
-      <ellipse cx="149" cy="178" rx="20" ry="11" fill="#1a5c3a" opacity="0.4" transform="rotate(22,149,178)"/>
-    </g>
-  </svg>
-
-  <div class="star-badge">
-    <span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span>
-  </div>
-
-  <h1>Sarai Flores</h1>
-  <p class="hero-role">Product Researcher · AI Automation Builder · Bilingual EN/ES</p>
-  <p class="hero-tagline">
-    <span style="color:var(--gold);font-size:0.8rem;">✦</span> First time on this planet.<br><strong>Endlessly curious about everyone else who is too.</strong> <span style="color:var(--gold);font-size:0.8rem;">✦</span>
-  </p>
-
-  <div class="hero-bullets reveal" style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin-bottom:2rem;">
-    <p style="font-family:'Cinzel',serif;font-size:0.72rem;letter-spacing:0.2em;color:rgba(201,168,76,0.7);text-transform:uppercase;">Currently</p>
-    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.8rem;max-width:600px;">
-      <span style="background:rgba(10,51,35,0.6);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.35rem 1rem;font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.15em;color:var(--gold-light);">Product Researcher</span>
-      <span style="background:rgba(10,51,35,0.6);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.35rem 1rem;font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.15em;color:var(--gold-light);">AI Automation Builder</span>
-      <span style="background:rgba(10,51,35,0.6);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.35rem 1rem;font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.15em;color:var(--gold-light);">Building Teyolia 🌿</span>
-      <span style="background:rgba(10,51,35,0.6);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.35rem 1rem;font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.15em;color:var(--gold-light);">Pinterest since invite-only</span>
-      <span style="background:rgba(10,51,35,0.6);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.35rem 1rem;font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.15em;color:var(--gold-light);">Bilingual EN/ES</span>
-    </div>
-  </div>
-
-  <div class="stats reveal">
-    <div class="stat">
-      <span class="stat-n">95%</span>
-      <span class="stat-l">Portfolio Retention<br><em style="color:rgba(201,168,76,0.45);font-style:italic;font-size:0.65rem;">Team goal: 90%</em></span>
-    </div>
-    <div class="stat"><span class="stat-n">27</span><span class="stat-l">Accounts Managed</span></div>
-    <div class="stat"><span class="stat-n">5</span><span class="stat-l">AI Tools Built</span></div>
-    <div class="stat"><span class="stat-n">4</span><span class="stat-l">Awards · Year One</span></div>
-  </div>
-
-  <div class="hero-btns">
-    <a href="#projects" class="btn btn-gold">View the Grimoire</a>
-    <a href="#contact" class="btn btn-outline">Summon Me</a>
-  </div>
-</section>
-
-<div class="divider"><span>✦</span></div>
-
-<section id="about">
-  <div class="about-text reveal">
-    <p class="sec-label">The Story</p>
-    <div class="sec-stars"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
-    <h2 class="sec-title">Doing things <em>scared</em></h2>
-    <p>I didn't come to tech to play it safe. I came to <strong>figure things out</strong> — even when the path wasn't clear, even when the tools were new, even when the answer wasn't obvious yet.</p>
-    <p>In my first year at Fullbay, I earned a <strong>Trailblazer Award</strong> and two <strong>High Performing Awards</strong> — not because everything came easily, but because I kept digging. If there was a wall, I looked for a door. If there wasn't one, I built it.</p>
-    <p>That same instinct is what led me to AI automation. I watched my team spend time on tasks that should take minutes. I started asking: <em>what if we didn't have to?</em> So I learned Zapier. I learned to prompt AI. I built five working tools from scratch — independently, outside of work hours — because the tools existed and I wasn't going to be afraid of them.</p>
-    <div class="pull-quote">"There has to be a better way" isn't a complaint. It's a compass.</div>
-    <p>I started as a lead preschool teacher and never stopped trying to understand how people learn. Every role since has been a different version of the same question: how do different people experience the same thing differently? That question is what led me to product research.</p>
-  </div>
-
-  <div class="awards reveal">
-    <p class="sec-label">Recognition</p>
-    <div class="sec-stars"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
-    <h3 class="sec-title" style="font-size:1.25rem;margin-bottom:1.4rem;">Earned in <em>Year One</em></h3>
-    <div class="award"><div class="award-icon">🔮</div><div><span class="award-name">Trailblazer Award</span><span class="award-sub">Fullbay · First Year</span></div></div>
-    <div class="award"><div class="award-icon">⭐</div><div><span class="award-name">High Performing Award</span><span class="award-sub">Fullbay · First Year</span></div></div>
-    <div class="award"><div class="award-icon">⭐</div><div><span class="award-name">High Performing Award</span><span class="award-sub">Fullbay · First Year</span></div></div>
-    <div class="award" style="margin-top:0.5rem;background:rgba(201,168,76,0.06);">
-      <div>
-        <span class="award-name" style="font-size:0.7rem;letter-spacing:0.1em;">EDUCATION</span>
-        <span class="award-sub" style="display:block;margin-top:0.25rem;">Harvard University — Certificate, Computer Science</span>
-        <span class="award-sub">FreeCodeCamp — Responsive Web Design</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"><span>✦</span></div>
-
-<section id="projects" style="padding-top:3rem;">
-  <div class="sec-stars"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
-  <p class="sec-label">The Grimoire</p>
-  <h2 class="sec-title">Five <em>Tools</em> Built From Scratch</h2>
-  <p class="projects-intro">Five AI-powered automations built independently — outside any employer — to show how I think about Customer Success at the intersection of technology and human relationships. Each is live, deployable, and grounded in real CSM workflows.</p>
-
-  <style>
-  .tool-carousel { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.4rem; margin-top:2rem; }
-  .tool-card {
-    background:rgba(10,51,35,0.55);
-    border:1px solid rgba(201,168,76,0.15);
-    border-radius:12px;
-    overflow:hidden;
-    cursor:pointer;
-    transition:border-color 0.3s, transform 0.3s;
-    position:relative;
-  }
-  .tool-card:hover { border-color:rgba(201,168,76,0.5); transform:translateY(-4px); }
-  .tool-card-img {
-    width:100%; height:180px; overflow:hidden;
-    background:rgba(4,16,10,0.8);
-    display:flex; align-items:center; justify-content:center;
-    border-bottom:1px solid rgba(201,168,76,0.1);
-    position:relative;
-  }
-  .tool-card-img img { width:100%; height:100%; object-fit:cover; opacity:0.85; transition:opacity 0.3s; }
-  .tool-card:hover .tool-card-img img { opacity:1; }
-  .tool-card-body { padding:1.2rem; }
-  .tool-card-num { font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:0.2em; color:var(--gold); opacity:0.6; margin-bottom:0.4rem; }
-  .tool-card-title { font-family:'Cinzel',serif; font-size:1rem; color:var(--cream); margin-bottom:0.5rem; line-height:1.3; }
-  .tool-card-title em { font-family:'IM Fell English',serif; font-style:italic; color:var(--gold); }
-  .tool-card-why { font-size:0.82rem; color:rgba(247,242,227,0.55); font-style:italic; margin-bottom:0.8rem; line-height:1.5; }
-  .tool-card-desc { font-size:0.88rem; color:rgba(247,242,227,0.72); line-height:1.6; margin-bottom:1rem; }
-  .tool-card-tags { display:flex; flex-wrap:wrap; gap:0.4rem; }
-  .tool-card-tag { background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.2); border-radius:20px; padding:0.2rem 0.6rem; font-size:0.65rem; color:var(--gold-light); font-family:'Cinzel',serif; letter-spacing:0.1em; }
-  </style>
-
-  <div class="tool-carousel reveal">
-
-    <div class="tool-card">
-      <div class="tool-card-img"><img src="churn-email.png" alt="Churn Risk Detection"/></div>
-      <div class="tool-card-body">
-        <p class="tool-card-num">01 · Zapier + OpenAI + Gmail</p>
-        <h3 class="tool-card-title">Churn Risk Detection <em>Alert System</em></h3>
-        <p class="tool-card-why">Because by the time you notice churn, you're already behind.</p>
-        <p class="tool-card-desc">AI analyzes health score, usage patterns, and renewal timing — then sends a CSM-ready intervention plan automatically.</p>
-        <div class="tool-card-tags"><span class="tool-card-tag">Zapier</span><span class="tool-card-tag">OpenAI GPT-4.1</span><span class="tool-card-tag">Gmail</span></div>
-      </div>
+    <div class="page active" id="p0">
+      <img src="Cover.png" alt="Portfolio Cover — Sarai Flores">
     </div>
 
-    <div class="tool-card">
-      <div class="tool-card-img"><img src="welcome-email.png" alt="Welcome Email Generator"/></div>
-      <div class="tool-card-body">
-        <p class="tool-card-num">02 · Zapier + OpenAI + Gmail</p>
-        <h3 class="tool-card-title">Welcome Email <em>Generator</em></h3>
-        <p class="tool-card-why">Generic onboarding emails don't build relationships. Personalized ones do.</p>
-        <p class="tool-card-desc">AI writes a fully personalized 30-day onboarding email the moment a new customer is created — before the CSM opens their laptop.</p>
-        <div class="tool-card-tags"><span class="tool-card-tag">Zapier</span><span class="tool-card-tag">OpenAI GPT-4.1</span><span class="tool-card-tag">Gmail</span></div>
-      </div>
+    <div class="page" id="p1">
+      <img src="Grimoire.png" alt="Grimoire — Who I Am">
     </div>
 
-    <div class="tool-card">
-      <div class="tool-card-img"><img src="digest-email.png" alt="Weekly Portfolio Digest"/></div>
-      <div class="tool-card-body">
-        <p class="tool-card-num">03 · Schedule + Sheets + OpenAI</p>
-        <h3 class="tool-card-title">Weekly Portfolio Health <em>Digest</em></h3>
-        <p class="tool-card-why">Monday mornings shouldn't start with scrambling.</p>
-        <p class="tool-card-desc">Every Monday, AI pulls the full portfolio and delivers a prioritized action plan — risk levels, recommendations, and an executive summary.</p>
-        <div class="tool-card-tags"><span class="tool-card-tag">Zapier</span><span class="tool-card-tag">OpenAI GPT-4o</span><span class="tool-card-tag">Sheets</span></div>
-      </div>
+    <div class="page" id="p2">
+      <img src="Teyolia.png" alt="Teyolia — My Biggest Project">
     </div>
 
-    <div class="tool-card">
-      <div class="tool-card-img"><img src="meeting-prep-email.png" alt="Meeting Prep Generator"/></div>
-      <div class="tool-card-body">
-        <p class="tool-card-num">04 · Zapier + OpenAI + Gmail</p>
-        <h3 class="tool-card-title">Meeting Prep <em>Generator</em></h3>
-        <p class="tool-card-why">The best customer calls start before you dial in.</p>
-        <p class="tool-card-desc">Drop in account data and receive talking points, risks, expansion opportunities, suggested questions, and an executive summary. Seconds.</p>
-        <div class="tool-card-tags"><span class="tool-card-tag">Zapier</span><span class="tool-card-tag">OpenAI GPT-4.1</span><span class="tool-card-tag">Gmail</span></div>
-      </div>
+    <div class="page" id="p3">
+      <img src="Automations.png" alt="Automations — 5 Spells I Cast Independently">
     </div>
 
-    <div class="tool-card">
-      <div class="tool-card-img"><img src="nps-email.png" alt="NPS Response Classifier"/></div>
-      <div class="tool-card-body">
-        <p class="tool-card-num">05 · Zapier + OpenAI + Gmail</p>
-        <h3 class="tool-card-title">NPS Response <em>Classifier</em></h3>
-        <p class="tool-card-why">Customer feedback is only valuable if you actually act on it.</p>
-        <p class="tool-card-desc">AI classifies sentiment, tags categories, assigns urgency, and recommends CSM actions — all before a human reads the response.</p>
-        <div class="tool-card-tags"><span class="tool-card-tag">Zapier</span><span class="tool-card-tag">OpenAI GPT-4o</span><span class="tool-card-tag">Gmail</span></div>
-      </div>
+    <div class="page" id="p4">
+      <img src="Journey.png" alt="Journey — It's Been Quite the Adventure">
+    </div>
+
+    <div class="page" id="p5">
+      <img src="Contact.png" alt="Don't Be Shy — Let's Connect">
+    </div>
+
+    <div class="page closing" id="p6">
+      <img src="Closing.png" alt="The End — Thank You for Visiting Willowmere">
     </div>
 
   </div>
-</section>
+</div>
 
+<!-- Navigation -->
+<button class="nav-arrow" id="prev" onclick="changePage(-1)" disabled>‹</button>
+<button class="nav-arrow" id="next" onclick="changePage(1)">›</button>
 
-<div class="divider"><span>✦</span></div>
+<!-- Dots -->
+<div id="dots"></div>
 
-<section id="teyolia" style="max-width:1080px;margin:0 auto;padding:3rem 2rem;position:relative;">
-  <div class="sec-stars"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
-  <p class="sec-label">Currently Building</p>
-  <h2 class="sec-title">Teyolia — <em>A Library Life</em></h2>
+<!-- Page label -->
+<div id="page-label"></div>
 
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start;" class="reveal">
-    <div>
-      <p style="color:rgba(247,242,227,0.78);margin-bottom:1.1rem;font-size:1.02rem;">
-        Teyolia is a whimsical book tracking app where your little character lives their own library life while you work, read, and journal. Think Stardew Valley meets your bookshelf — personal, cozy, and nothing like the serious book apps that already exist.
-      </p>
-      <p style="color:rgba(247,242,227,0.78);margin-bottom:1.1rem;font-size:1.02rem;">
-        Before building a single feature I'm conducting reader research to understand how people preserve meaning from books, what they do with the feeling after a great read, and what their dream reading life actually looks like. Because I can't build for people I haven't tried to understand first.
-      </p>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem;">
-        <span style="background:rgba(10,51,35,0.55);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.3rem 0.9rem;font-size:0.75rem;color:var(--gold-light);">In Progress 🌿</span>
-        <span style="background:rgba(10,51,35,0.55);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.3rem 0.9rem;font-size:0.75rem;color:var(--gold-light);">Product Research</span>
-        <span style="background:rgba(10,51,35,0.55);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.3rem 0.9rem;font-size:0.75rem;color:var(--gold-light);">Affinity Mapping</span>
-        <span style="background:rgba(10,51,35,0.55);border:1px solid rgba(201,168,76,0.25);border-radius:20px;padding:0.3rem 0.9rem;font-size:0.75rem;color:var(--gold-light);">Jobs to be Done</span>
-      </div>
-    </div>
-    <div style="background:rgba(10,51,35,0.55);border:1px solid rgba(201,168,76,0.18);border-radius:12px;padding:2rem;">
-      <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.25em;color:var(--gold);opacity:0.75;text-transform:uppercase;margin-bottom:1rem;">The Research</p>
-      <p style="color:rgba(247,242,227,0.78);font-size:0.95rem;margin-bottom:1.5rem;font-style:italic;">"I can't build for people I haven't tried to understand first."</p>
-      <p style="color:rgba(247,242,227,0.6);font-size:0.88rem;margin-bottom:1.5rem;">Conducting qualitative reader research with real users — exploring how people preserve meaning from books, share what they've read, and what their dream reading life actually looks like.</p>
-      <a href="https://forms.gle/ZsviHVnkSqCfZY1o9" target="_blank" style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.75rem 1.8rem;border-radius:4px;text-decoration:none;transition:all 0.3s;background:var(--gold);color:var(--midnight);border:1px solid var(--gold);display:inline-block;">Join the Research 🌿</a>
-    </div>
-  </div>
-</section>
+<!-- Keyboard hint -->
+<div id="hint">← → to navigate · drag stickers</div>
 
-<div class="divider"><span>✦</span></div>
-
-<section id="experience">
-  <div class="sec-stars"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
-  <p class="sec-label">The Journey</p>
-  <h2 class="sec-title">Where I've <em>Wandered</em></h2>
-
-  <div class="exp-item reveal">
-    <p class="exp-co">Fullbay</p>
-    <p class="exp-role">Customer Onboarding Specialist — Enablement & AI Automation · 2024 – Present</p>
-    <ul class="exp-list">
-      <li>Conducted deep discovery with every enterprise customer before configuring workflows — learning how they actually operate, not how the software assumes they do</li>
-      <li>Maintained 95% retention across 27 active accounts · 12-day average TTV · 4 company awards including first-ever Trailblazer Award</li>
-      <li>Designed bilingual enablement programs for 6 enterprise organizations (50–100+ users) including a non-English-speaking shop</li>
-      <li>Deep-dived into wind turbine operations to adapt Fullbay for Geared — building entirely new workflow structures for an industry the software was never designed to serve</li>
-      <li>Independently built 5 AI-powered automations using Zapier and OpenAI · Ranked first on team for users added</li>
-    </ul>
-  </div>
-
-  <div class="exp-item reveal">
-    <p class="exp-co">White Mountain Trucking</p>
-    <p class="exp-role">Administrative Coordinator · 2024 – Present</p>
-    <ul class="exp-list">
-      <li>Manage high-volume communications across internal teams and operational departments</li>
-      <li>Maintain operational and financial records including invoicing and payroll documentation</li>
-      <li>Coordinate onboarding documentation and compliance tracking cross-functionally</li>
-    </ul>
-  </div>
-
-  <div class="exp-item reveal">
-    <p class="exp-co">Englund Equipment Company</p>
-    <p class="exp-role">Dispatch & Logistics Coordinator · 2013 – 2018</p>
-    <ul class="exp-list">
-      <li>Managed customer and vendor communications for timely logistics coordination</li>
-      <li>Resolved operational issues and maintained service continuity</li>
-    </ul>
-  </div>
-
-  <div style="margin-top:4rem;" class="reveal">
-    <div class="sec-stars"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
-    <p class="sec-label">Arsenal</p>
-    <h3 class="sec-title" style="font-size:1.45rem;margin-bottom:1.8rem;">Tools of the <em>Trade</em></h3>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <p class="skill-group-title">Research & Enablement</p>
-        <ul class="skill-list">
-          <li>Qualitative Research Methods</li><li>Affinity Mapping</li>
-          <li>Jobs to be Done</li><li>User Interviews</li>
-          <li>Knowledge Management</li><li>Instructional Design</li>
-        </ul>
-      </div>
-      <div class="skill-group">
-        <p class="skill-group-title">AI & Automation</p>
-        <ul class="skill-list">
-          <li>Zapier Workflow Design</li><li>OpenAI / GPT-4.1</li>
-          <li>Claude (Anthropic)</li><li>Prompt Engineering</li>
-          <li>AI Adoption Strategy</li><li>Automation Architecture</li>
-        </ul>
-      </div>
-      <div class="skill-group">
-        <p class="skill-group-title">Platforms & Tools</p>
-        <ul class="skill-list">
-          <li>Salesforce CRM</li><li>ChurnZero</li>
-          <li>Google Workspace</li><li>Microsoft Office Suite</li>
-          <li>Slack · Zoom</li><li>GitHub</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"><span>✦</span></div>
-
-<section id="contact">
-  <div class="sec-stars"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
-  <p class="sec-label">A Few Tidbits</p>
-  <h2 class="sec-title">Don't be <em>shy</em></h2>
-
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;max-width:860px;margin:0 auto 3rem;text-align:left;" class="reveal">
-    <div style="background:rgba(10,51,35,0.45);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1.2rem;">
-      <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);opacity:0.7;margin-bottom:0.5rem;">Origin story</p>
-      <p style="font-size:0.9rem;color:rgba(247,242,227,0.75);line-height:1.6;">Started as a lead preschool teacher. Still asking the same question: how does this person actually experience the world?</p>
-    </div>
-    <div style="background:rgba(10,51,35,0.45);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1.2rem;">
-      <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);opacity:0.7;margin-bottom:0.5rem;">Currently building</p>
-      <p style="font-size:0.9rem;color:rgba(247,242,227,0.75);line-height:1.6;">Teyolia — a whimsical book tracking app. Stardew Valley meets your bookshelf. Researching before building a single feature. 🌿</p>
-    </div>
-    <div style="background:rgba(10,51,35,0.45);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1.2rem;">
-      <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);opacity:0.7;margin-bottom:0.5rem;">Also building</p>
-      <p style="font-size:0.9rem;color:rgba(247,242,227,0.75);line-height:1.6;">Brewjitas — a canned cold brew coffee brand with my best friend. Because why not.</p>
-    </div>
-    <div style="background:rgba(10,51,35,0.45);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1.2rem;">
-      <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);opacity:0.7;margin-bottom:0.5rem;">In my purse right now</p>
-      <p style="font-size:0.9rem;color:rgba(247,242,227,0.75);line-height:1.6;">A deck of Staccs — a card game I backed on Kickstarter and carry everywhere. Indie games, always.</p>
-    </div>
-    <div style="background:rgba(10,51,35,0.45);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1.2rem;">
-      <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);opacity:0.7;margin-bottom:0.5rem;">Mom of three</p>
-      <p style="font-size:0.9rem;color:rgba(247,242,227,0.75);line-height:1.6;">Homeschooling, volunteering at school, believing early education shapes everything. Pinterest user since the invite-only days.</p>
-    </div>
-    <div style="background:rgba(10,51,35,0.45);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:1.2rem;">
-      <p style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.2em;color:var(--gold);opacity:0.7;margin-bottom:0.5rem;">Learning right now</p>
-      <p style="font-size:0.9rem;color:rgba(247,242,227,0.75);line-height:1.6;">Python and pandas. SQL. Affinity mapping. How to turn every question into something worth building.</p>
-    </div>
-  </div>
-
-  <div class="sec-stars"><span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span></div>
-  <p class="sec-label" style="margin-top:1rem;">Summon</p>
-  <h2 class="sec-title">Let's <em>Connect</em></h2>
-  <p style="color:rgba(247,242,227,0.55);max-width:460px;margin:0 auto 0.5rem;font-size:0.95rem;">Avondale, AZ · Open to Remote Opportunities</p>
-  <div class="contact-links">
-    <a href="mailto:Halmeonilarry@gmail.com" class="contact-link">✉ Email</a>
-    <a href="https://linkedin.com/in/saraimflores" class="contact-link" target="_blank">in LinkedIn</a>
-    <a href="https://github.com/HalmeoniLarry" class="contact-link" target="_blank">⌥ GitHub</a>
-  </div>
-</section>
-
-<footer>
-  <p>Sarai Flores · Built with intention · Phoenix, AZ</p>
-  <p style="margin-top:0.4rem;font-size:0.6rem;opacity:0.4;">✦ First time on this planet. Endlessly curious. ✦</p>
-</footer>
+<!-- Movable Stickers -->
+<div class="sticker" id="s1" style="left:6%;top:15%;">✨</div>
+<div class="sticker" id="s2" style="left:8%;top:75%;">🍵</div>
+<div class="sticker" id="s3" style="right:7%;top:20%;">🌿</div>
+<div class="sticker" id="s4" style="right:6%;top:70%;">⭐</div>
+<div class="sticker" id="s5" style="left:5%;top:45%;">🕯️</div>
+<div class="sticker" id="s6" style="right:8%;top:45%;">📚</div>
+<div class="sticker" id="s7" style="left:15%;top:88%;">🌸</div>
+<div class="sticker" id="s8" style="right:15%;top:88%;">🍂</div>
+<div class="sticker" id="s9" style="left:20%;top:8%;">🌙</div>
+<div class="sticker" id="s10" style="right:20%;top:8%;">🪶</div>
 
 <script>
-// Cursor
-const cursor = document.getElementById('cursor');
-const trailCanvas = document.getElementById('trail');
-const tctx = trailCanvas.getContext('2d');
-trailCanvas.width = window.innerWidth;
-trailCanvas.height = window.innerHeight;
-let particles = [];
+  const pages = document.querySelectorAll('.page');
+  const labels = ['Cover', 'Grimoire', 'Teyolia', 'Automations', 'Journey', 'Contact', 'The End'];
+  let current = 0;
+  let animating = false;
 
-window.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-  for(let i=0;i<2;i++) {
-    particles.push({
-      x: e.clientX+(Math.random()-0.5)*8,
-      y: e.clientY+(Math.random()-0.5)*8,
-      life:1, size:Math.random()*2.5+0.8,
-      star: Math.random()>0.55
-    });
-  }
-});
-
-(function animTrail(){
-  tctx.clearRect(0,0,trailCanvas.width,trailCanvas.height);
-  particles = particles.filter(p=>p.life>0);
-  particles.forEach(p=>{
-    if(p.star){
-      tctx.font=`${p.size*4}px serif`;
-      tctx.fillStyle=`rgba(201,168,76,${p.life*0.65})`;
-      tctx.fillText('✦',p.x,p.y);
-    } else {
-      tctx.beginPath();
-      tctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);
-      tctx.fillStyle=`rgba(201,168,76,${p.life*0.45})`;
-      tctx.fill();
-    }
-    p.life-=0.042;
+  // Build dots
+  const dotsEl = document.getElementById('dots');
+  pages.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
   });
-  requestAnimationFrame(animTrail);
-})();
 
-// Fireflies
-const ffCanvas = document.getElementById('fireflies');
-const ffctx = ffCanvas.getContext('2d');
-ffCanvas.width = window.innerWidth;
-ffCanvas.height = window.innerHeight;
-
-const flies = Array.from({length:55},()=>({
-  x:Math.random()*window.innerWidth,
-  y:Math.random()*window.innerHeight*0.9,
-  vx:(Math.random()-0.5)*0.4,
-  vy:(Math.random()-0.5)*0.3,
-  life:Math.random()*Math.PI*2,
-  speed:0.007+Math.random()*0.01,
-  size:1.2+Math.random()*1.8,
-  wobble:Math.random()*Math.PI*2,
-  gold:Math.random()>0.38
-}));
-
-(function animFlies(){
-  ffctx.clearRect(0,0,ffCanvas.width,ffCanvas.height);
-  flies.forEach(f=>{
-    f.wobble+=0.018; f.life+=f.speed;
-    f.x+=f.vx+Math.sin(f.wobble)*0.25;
-    f.y+=f.vy+Math.cos(f.wobble*0.7)*0.18;
-    if(f.x<0)f.x=ffCanvas.width;
-    if(f.x>ffCanvas.width)f.x=0;
-    if(f.y<0)f.y=ffCanvas.height*0.9;
-    if(f.y>ffCanvas.height*0.92)f.y=0;
-    const alpha=Math.sin(f.life)*0.5+0.5;
-    if(alpha<0.05)return;
-    const col=f.gold?`rgba(201,168,76,${alpha*0.85})`:`rgba(100,210,130,${alpha*0.55})`;
-    const grd=ffctx.createRadialGradient(f.x,f.y,0,f.x,f.y,f.size*5);
-    grd.addColorStop(0,col); grd.addColorStop(1,'transparent');
-    ffctx.fillStyle=grd;
-    ffctx.beginPath(); ffctx.arc(f.x,f.y,f.size*5,0,Math.PI*2); ffctx.fill();
-    ffctx.beginPath(); ffctx.arc(f.x,f.y,f.size,0,Math.PI*2);
-    ffctx.fillStyle=f.gold?`rgba(247,242,227,${alpha})`:`rgba(180,255,180,${alpha})`;
-    ffctx.fill();
-  });
-  requestAnimationFrame(animFlies);
-})();
-
-// Background stars
-const starsEl = document.getElementById('stars-bg');
-for(let i=0;i<90;i++){
-  const s=document.createElement('div');
-  s.className='star-dot';
-  const sz=Math.random()*2+0.8;
-  s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--d:${2+Math.random()*5}s;--delay:${Math.random()*4}s;--o:${0.25+Math.random()*0.55};`;
-  starsEl.appendChild(s);
-}
-
-// Scattered page stars
-const starChars=['✦','✧','⋆','✦','✧'];
-document.querySelectorAll('section').forEach(sec=>{
-  for(let i=0;i<10;i++){
-    const s=document.createElement('span');
-    s.className='pg-star';
-    s.textContent=starChars[Math.floor(Math.random()*starChars.length)];
-    s.style.cssText=`left:${Math.random()*96}%;top:${Math.random()*96}%;--psd:${3+Math.random()*5}s;--psdelay:${Math.random()*5}s;--pso:${0.15+Math.random()*0.4};--psz:${0.45+Math.random()*0.7}rem;`;
-    sec.appendChild(s);
+  function updateUI() {
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    document.getElementById('prev').disabled = current === 0;
+    document.getElementById('next').disabled = current === pages.length - 1;
+    document.getElementById('page-label').textContent = labels[current];
   }
-});
 
-// Scroll reveal
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});
-},{threshold:0.12});
-document.querySelectorAll('.reveal').forEach(r=>obs.observe(r));
-
-// Grimoire flipbook
-const pages = document.querySelectorAll('.grimoire-page');
-const dots = document.querySelectorAll('.grim-dot');
-const prevBtn = document.getElementById('grim-prev');
-const nextBtn = document.getElementById('grim-next');
-let currentPage = 0;
-
-function showPage(n) {
-  const current = document.querySelector('.grimoire-page.active');
-  if(current) {
-    current.classList.add('flipping-out');
+  function goTo(n) {
+    if (animating || n === current || n < 0 || n >= pages.length) return;
+    animating = true;
+    const dir = n > current ? 1 : -1;
+    pages[current].classList.remove('active');
+    pages[current].classList.add(dir > 0 ? 'exit-left' : '');
+    current = n;
+    pages[current].classList.remove('exit-left');
+    pages[current].classList.add('active');
+    updateUI();
     setTimeout(() => {
-      current.classList.remove('active', 'flipping-out');
-    }, 300);
+      pages.forEach(p => { if (!p.classList.contains('active')) p.classList.remove('exit-left'); });
+      animating = false;
+    }, 650);
   }
-  setTimeout(() => {
-    currentPage = (n + pages.length) % pages.length;
-    pages[currentPage].classList.add('active');
-    dots.forEach((d,i) => d.classList.toggle('active', i === currentPage));
-    prevBtn.disabled = currentPage === 0;
-    nextBtn.disabled = currentPage === pages.length - 1;
-  }, 300);
-}
 
-pages[0].classList.add('active');
-prevBtn.disabled = true;
-prevBtn.addEventListener('click', () => showPage(currentPage - 1));
-nextBtn.addEventListener('click', () => showPage(currentPage + 1));
-dots.forEach((d,i) => d.addEventListener('click', () => showPage(i)));
+  function changePage(dir) { goTo(current + dir); }
 
-window.addEventListener('resize',()=>{
-  trailCanvas.width=ffCanvas.width=window.innerWidth;
-  trailCanvas.height=ffCanvas.height=window.innerHeight;
-});
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changePage(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changePage(-1);
+  });
+
+  // Touch/swipe
+  let touchX = 0;
+  document.addEventListener('touchstart', e => touchX = e.touches[0].clientX);
+  document.addEventListener('touchend', e => {
+    const diff = touchX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) changePage(diff > 0 ? 1 : -1);
+  });
+
+  updateUI();
+
+  // Sparkles
+  const sparkleContainer = document.getElementById('sparkles');
+  for (let i = 0; i < 30; i++) {
+    const s = document.createElement('div');
+    s.className = 'sparkle';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+    s.style.setProperty('--delay', (Math.random() * 4) + 's');
+    sparkleContainer.appendChild(s);
+  }
+
+  // Draggable stickers
+  document.querySelectorAll('.sticker').forEach(sticker => {
+    let dragging = false, ox = 0, oy = 0;
+
+    sticker.addEventListener('mousedown', e => {
+      dragging = true;
+      const r = sticker.getBoundingClientRect();
+      ox = e.clientX - r.left;
+      oy = e.clientY - r.top;
+      sticker.style.transition = 'none';
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', e => {
+      if (!dragging) return;
+      sticker.style.left = (e.clientX - ox) + 'px';
+      sticker.style.top = (e.clientY - oy) + 'px';
+      sticker.style.right = 'auto';
+    });
+
+    document.addEventListener('mouseup', () => {
+      dragging = false;
+      sticker.style.transition = 'transform 0.2s';
+    });
+
+    // Touch drag
+    sticker.addEventListener('touchstart', e => {
+      dragging = true;
+      const r = sticker.getBoundingClientRect();
+      ox = e.touches[0].clientX - r.left;
+      oy = e.touches[0].clientY - r.top;
+      e.preventDefault();
+    }, { passive: false });
+
+    sticker.addEventListener('touchmove', e => {
+      if (!dragging) return;
+      sticker.style.left = (e.touches[0].clientX - ox) + 'px';
+      sticker.style.top = (e.touches[0].clientY - oy) + 'px';
+      sticker.style.right = 'auto';
+      e.preventDefault();
+    }, { passive: false });
+
+    sticker.addEventListener('touchend', () => dragging = false);
+  });
 </script>
 </body>
 </html>
